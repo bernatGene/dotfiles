@@ -1,0 +1,19 @@
+{
+  "extras": [
+    "lazyvim.plugins.extras.editor.telescope",
+    "lazyvim.plugins.extras.formatting.biome",
+    "lazyvim.plugins.extras.formatting.black",
+    "lazyvim.plugins.extras.lang.astro",
+    "lazyvim.plugins.extras.lang.docker",
+    "lazyvim.plugins.extras.lang.python",
+    "lazyvim.plugins.extras.lang.svelte",
+    "lazyvim.plugins.extras.lang.tailwind",
+    "lazyvim.plugins.extras.lang.typescript",
+    "lazyvim.plugins.extras.lang.yaml"
+  ],
+  "install_version": 14,
+  "news": {
+    "NEWS.md": "10960"
+  },
+  "version": 8
+}
