@@ -4,13 +4,6 @@
 --
 local map = vim.keymap.set
 
-map("n", "<leader>t", function()
-  vim.cmd("vsplit | terminal")
-  vim.cmd("startinsert")
-end, { desc = "V Terminal" })
-
-map("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
-
 map("n", "<leader>gg", function()
   vim.cmd("Flog -date=short")
 end, { desc = "Git graph (flog)" })
