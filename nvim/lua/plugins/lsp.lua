@@ -1,6 +1,15 @@
 return {
   "neovim/nvim-lspconfig",
   opts = {
+    diagnostics = {
+      float = {
+        style = "minimal",
+        border = "rounded",
+        source = "always",
+        header = "",
+        prefix = "",
+      },
+    },
     servers = {
       pyright = {
         settings = {
