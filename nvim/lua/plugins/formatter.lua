@@ -1,8 +1,7 @@
 return {
   "stevearc/conform.nvim",
   opts = function(_, opts)
-    -- Keep existing opts
-    return opts
+    opts.formatters_by_ft.astro = { "prettier" }
   end,
   keys = {
     {

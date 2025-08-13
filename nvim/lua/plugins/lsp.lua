@@ -11,6 +11,15 @@ return {
       },
     },
     servers = {
+      biome = {
+        filetypes = {
+          "javascript",
+          "typescript",
+          "json",
+        },
+      },
+
+      astro = {},
       pyright = {
         settings = {
           python = {
