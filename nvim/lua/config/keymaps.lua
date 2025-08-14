@@ -7,3 +7,6 @@ local map = vim.keymap.set
 map("n", "<leader>gg", function()
   vim.cmd("Flog -date=short")
 end, { desc = "Git graph (flog)" })
+
+map("v", "<leader>y", '"+y', { desc = "Copy to system clipboard" })
+map("v", "<leader>x", '"+x', { desc = "Cut to system clipboard" })
