@@ -10,5 +10,26 @@ return {
       conceal_delimiters = false,
       style = "none",
     },
+    completions = {
+      blink = { enabled = false },
+    },
+    bullet = {
+      render_modes = true,
+      icons = { "-", "○", "◆", "◇" },
+    },
+    checkbox = {
+      render_modes = true,
+      bullet = true,
+      unchecked = {
+        icon = "󰄱 ",
+        highlight = "RenderMarkdownUnchecked",
+        scope_highlight = nil,
+      },
+      checked = {
+        icon = "󰱒 ",
+        highlight = "RenderMarkdownChecked",
+        scope_highlight = nil,
+      },
+    },
   },
 }

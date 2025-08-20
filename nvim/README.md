@@ -11,10 +11,6 @@ def function(hello):
     return
 ```
 
-- first
-- second
-- third
-
 | Column1 | Column2 | Column3 |
 | ------- | ------- | ------- |
 | Item1   | Item1   | Item1   |
@@ -25,3 +21,7 @@ def function(hello):
 | Item1.2 | Item2.2 | Item3.2 | Item4.2 |
 | Item1.3 | Item2.3 | Item3.3 | Item4.3 |
 | Item1.4 | Item2.4 | Item3.4 | Item4.4 |
+
+| Column1 | Column2 | Column3 |
+| ------- | ------- | ------- |
+| Item1   | Item1   | Item1   |
