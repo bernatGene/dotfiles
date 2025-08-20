@@ -145,7 +145,7 @@ return {
 
     completion = {
       nvim_cmp = false, -- Disable nvim-cmp
-      blink = true, -- Enable blink.cmp
+      blink = false, -- Enable blink.cmp
       min_chars = 2,
     },
 
@@ -209,6 +209,15 @@ return {
     -- Disable UI concealing
     ui = {
       enable = false,
+      checkboxes = {
+        [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
+        ["x"] = { char = "", hl_group = "ObsidianDone" },
+        ["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
+        ["!"] = { char = "", hl_group = "ObsidianImportant" },
+      },
+    },
+    checkbox = {
+      order = { " ", "x" },
     },
 
     -- Image attachments configuration
