@@ -1,4 +1,9 @@
 -- ~/.config/nvim/lua/plugins/obsidian.lua
+local wk = require("which-key")
+wk.add({
+  { "<leader>o", group = "obsidian", desc = "obsidian", icon = { icon = "󰇈", color = "purple" } },
+})
+
 return {
   "obsidian-nvim/obsidian.nvim",
   version = "*",
