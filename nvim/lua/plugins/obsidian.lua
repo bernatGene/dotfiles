@@ -166,8 +166,40 @@ return {
 
     templates = {
       folder = "templates",
-      date_format = "%Y-%m-%d",
+      date_format = "%Y-%m-%d-%a",
       time_format = "%H:%M",
+      substitutions = {
+        yesterday_link = function(ctx)
+          local note = ctx.partial_note
+          if not note or not note.id then
+            vim.notify("ctx.partial_note is nil or missing id", vim.log.levels.WARN)
+            return ""
+          end
+          local y, m, d = note.id:match("(%d+)%-(%d+)%-(%d+)%-%a")
+          if not (y and m and d) then
+            vim.notify("Failed to parse date from id: " .. tostring(note.id), vim.log.levels.WARN)
+            return ""
+          end
+          local t = os.time({ year = y, month = m, day = d })
+          local prev = os.date(ctx.template_opts.date_format, t - 86400)
+          return string.format("[[dailynote/%s|Yesterday]]", prev)
+        end,
+        tomorrow_link = function(ctx)
+          local note = ctx.partial_note
+          if not note or not note.id then
+            vim.notify("ctx.partial_note is nil or missing id", vim.log.levels.WARN)
+            return ""
+          end
+          local y, m, d = note.id:match("(%d+)%-(%d+)%-(%d+)%-%a")
+          if not (y and m and d) then
+            vim.notify("Failed to parse date from id: " .. tostring(note.id), vim.log.levels.WARN)
+            return ""
+          end
+          local t = os.time({ year = y, month = m, day = d })
+          local next = os.date(ctx.template_opts.date_format, t + 86400)
+          return string.format("[[dailynote/%s|Tomorrow]]", next)
+        end,
+      },
     },
 
     picker = {
