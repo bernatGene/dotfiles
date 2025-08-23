@@ -31,9 +31,18 @@ return {
 
         vim.fn.mkdir(scratch_dir, "p")
 
-        local timestamp = os.time()
-        local note_name = timestamp .. "_note.md"
-        local note_path = scratch_dir .. "/" .. note_name
+        -- Base name: YYYYMMDDHHMM_projectname_note.md
+        local datetime = os.date("%Y%m%d%H%M")
+        local base_name = string.format("%s_%s_note.md", datetime, project_name)
+        local note_path = scratch_dir .. "/" .. base_name
+
+        -- If file exists, append -1, -2, ...
+        local counter = 1
+        while vim.fn.filereadable(note_path) == 1 do
+          local alt_name = string.format("%s-%d_%s_note.md", datetime, counter, project_name)
+          note_path = scratch_dir .. "/" .. alt_name
+          counter = counter + 1
+        end
 
         vim.cmd("edit " .. vim.fn.fnameescape(note_path))
 
@@ -69,14 +78,8 @@ return {
         local notes = {}
 
         for name, type in vim.fs.dir(scratch_dir) do
-          if type == "file" and name:match("%.md$") and name:match("^%d+_note%.md$") then
-            local timestamp = tonumber(name:match("^(%d+)_note%.md$"))
-            if timestamp then
-              table.insert(notes, {
-                file = scratch_dir .. "/" .. name,
-                timestamp = timestamp,
-              })
-            end
+          if type == "file" and name:match("%note.md$") then
+            table.insert(notes, name)
           end
         end
 
@@ -85,10 +88,9 @@ return {
           return
         end
 
-        table.sort(notes, function(a, b)
-          return a.timestamp > b.timestamp
-        end)
-        vim.cmd("edit " .. vim.fn.fnameescape(notes[1].file))
+        table.sort(notes) -- lexicographic sort
+        local latest = notes[#notes]
+        vim.cmd("edit " .. vim.fn.fnameescape(scratch_dir .. "/" .. latest))
       end,
       desc = "Open last project scratch note",
     },
@@ -120,10 +122,33 @@ return {
     { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Show backlinks" },
     { "<leader>oo", "<cmd>Obsidian open<cr>", desc = "Open in Obsidian app" },
     { "<leader>op", "<cmd>Obsidian paste_img<cr>", desc = "Paste image from clipboard" },
+    {
+      "<leader>oc",
+      function()
+        vim.ui.input({ prompt = "New note title: " }, function(input)
+          if input and input ~= "" then
+            vim.cmd("Obsidian new " .. vim.fn.fnameescape(input))
+          end
+        end)
+      end,
+      desc = "New note in current dir",
+    },
 
     -- Link operations (visual mode)
     { "<leader>ol", ":Obsidian link<cr>", mode = "v", desc = "Link selected text" },
     { "<leader>oL", ":Obsidian link_new<cr>", mode = "v", desc = "Link to new note" },
+    {
+      "<leader>oe",
+      function()
+        vim.ui.input({ prompt = "New note title: " }, function(input)
+          if input and input ~= "" then
+            vim.cmd("Obsidian extract_note " .. vim.fn.fnameescape(input))
+          end
+        end)
+      end,
+      mode = "v",
+      desc = "Extract to new note",
+    },
   },
   opts = {
     workspaces = {
@@ -145,8 +170,8 @@ return {
 
     completion = {
       nvim_cmp = false, -- Disable nvim-cmp
-      blink = false, -- Enable blink.cmp
-      min_chars = 2,
+      blink = true, -- Enable blink.cmp
+      min_chars = 4,
     },
 
     new_notes_location = "current_dir",
@@ -161,7 +186,7 @@ return {
           suffix = suffix .. string.char(math.random(65, 90))
         end
       end
-      return tostring(os.time()) .. "_" .. suffix
+      return os.date("%Y%m%d%H%M") .. "-" .. suffix
     end,
 
     templates = {
@@ -209,12 +234,6 @@ return {
     -- Disable UI concealing
     ui = {
       enable = false,
-      checkboxes = {
-        [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
-        ["x"] = { char = "", hl_group = "ObsidianDone" },
-        ["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
-        ["!"] = { char = "", hl_group = "ObsidianImportant" },
-      },
     },
     checkbox = {
       order = { " ", "x" },

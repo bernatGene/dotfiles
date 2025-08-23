@@ -40,12 +40,12 @@ return {
       nerd_font_variant = "mono",
     },
 
-    -- -- (Default) Only show the documentation popup when manually triggered
-    -- completion = {
-    --   list = {
-    --     selection = "",
-    --   },
-    -- },
+    --
+    completion = {
+      ghost_text = {
+        enabled = false,
+      },
+    },
 
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
@@ -53,10 +53,12 @@ return {
       default = { "lsp", "path", "snippets", "buffer" },
       per_filetype = {
         markdown = {
-          inherit_defaults = false,
+          "obsidian",
           "snippets",
-          "lsp",
         },
+      },
+      providers = {
+        snippets = { min_keyword_length = 4 },
       },
     },
 
