@@ -6,9 +6,7 @@ return {
         "<leader>r",
         function()
           local word = vim.fn.expand("<cword>")
-          vim.notify(word)
           local suggestions = vim.fn.spellsuggest(word)
-          vim.notify(suggestions)
           if #suggestions == 0 then
             vim.notify("No spelling suggestions")
             return
