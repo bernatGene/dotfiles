@@ -166,6 +166,7 @@ return {
       alias_format = "%B %-d, %Y",
       template = "dailynotetemplate.md",
       default_tags = { "daily-notes" },
+      workdays_only = false,
     },
 
     completion = {

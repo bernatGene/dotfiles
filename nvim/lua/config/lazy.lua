@@ -47,7 +47,7 @@ require("lazy").setup({
         "tohtml",
         "tutor",
         "zipPlugin",
-        "render-markdown",
+        -- "render-markdown",
       },
     },
   },
@@ -56,3 +56,10 @@ require("lazy").setup({
     backdrop = 100,
   },
 })
+-- italics for emphasis
+vim.api.nvim_set_hl(0, "markdownItalic", { italic = true })
+-- bold for strong emphasis
+vim.api.nvim_set_hl(0, "markdownBold", { bold = true })
+-- in case tree-sitter uses other groups, also set generic links
+vim.api.nvim_set_hl(0, "Italic", { italic = true })
+vim.api.nvim_set_hl(0, "Bold", { bold = true })
