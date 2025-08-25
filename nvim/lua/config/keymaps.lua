@@ -11,7 +11,7 @@ end, { desc = "Git graph (flog)" })
 map("v", "<leader>y", '"+y', { desc = "Copy to system clipboard" })
 map("v", "<leader>x", '"+x', { desc = "Cut to system clipboard" })
 
---spell
+--spell.lua
 vim.keymap.set("n", "<leader>r", function()
   local word = vim.fn.expand("<cword>")
   local suggestions = vim.fn.spellsuggest(word)
