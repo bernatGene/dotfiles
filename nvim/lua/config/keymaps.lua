@@ -5,7 +5,7 @@
 local map = vim.keymap.set
 
 map("n", "<leader>gg", function()
-  vim.cmd("Flog -date=short -all")
+  vim.cmd("Flog -date=short")
 end, { desc = "Git graph (flog)" })
 
 map("v", "<leader>y", '"+y', { desc = "Copy to system clipboard" })
@@ -27,18 +27,30 @@ vim.keymap.set("n", "<leader>r", function()
 end, { desc = "Spell suggest" })
 
 vim.keymap.set("n", "<leader>z", function()
-  local langs = { "en", "es", "ca" }
-  local current = vim.opt.spelllang:get()[1] or "none"
+  local langs = { "en", "es", "ca", "en,ca", "" }
+  local display_names = {
+    en = "English",
+    es = "Castellano",
+    ca = "Català",
+    ["en,ca"] = "En/Ca",
+    [""] = "Disable",
+  }
+  local current = vim.opt.spelllang:get()[1] or ""
   vim.ui.select(langs, {
-    prompt = "Select spell language (current: " .. current .. ")",
+    prompt = "Select spell language (current: " .. (display_names[current] or "Disabled") .. ")",
     format_item = function(item)
-      return item == current and (item .. " ✓") or item
+      return item == current and (display_names[item] .. " ✓") or display_names[item]
     end,
   }, function(choice)
     if choice then
-      vim.opt.spell = true
-      vim.opt.spelllang = { choice }
-      vim.notify("Spell language set to " .. choice, vim.log.levels.INFO)
+      if choice == "" then
+        vim.opt.spell = false
+        vim.notify("Spell check disabled", vim.log.levels.INFO)
+      else
+        vim.opt.spell = true
+        vim.opt.spelllang = { choice }
+        vim.notify("Spell language set to " .. display_names[choice], vim.log.levels.INFO)
+      end
     end
   end)
 end, { desc = "Set spell language" })
