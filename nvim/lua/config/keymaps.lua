@@ -35,7 +35,10 @@ vim.keymap.set("n", "<leader>z", function()
     ["en,ca"] = "En/Ca",
     [""] = "Disable",
   }
-  local current = vim.opt.spelllang:get()[1] or ""
+  local current = ""
+  if vim.o.spell then
+    current = vim.opt.spelllang:get()[1] or ""
+  end
   vim.ui.select(langs, {
     prompt = "Select spell language (current: " .. (display_names[current] or "Disabled") .. ")",
     format_item = function(item)
