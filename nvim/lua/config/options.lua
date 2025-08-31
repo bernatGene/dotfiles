@@ -2,10 +2,8 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 vim.opt.clipboard = ""
-
--- global defaults
 vim.opt.expandtab = true
-
+vim.opt.conceallevel = 0
 vim.o.winborder = "rounded"
 -- -- js/ts specific
 vim.api.nvim_create_autocmd("FileType", {
