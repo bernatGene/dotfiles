@@ -60,6 +60,15 @@ return {
       },
     },
   },
+  keys = {
+    {
+      "<leader>n",
+      function()
+        Snacks.notifier.show_history()
+      end,
+    },
+    desc = "Show notification history",
+  },
   image = {
     resolve = function(path, src)
       if require("obsidian.api").path_is_note(path) then
