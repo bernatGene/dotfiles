@@ -4,6 +4,13 @@ wk.add({
   { "<leader>o", group = "obsidian", desc = "obsidian", icon = { icon = "󰇈", color = "purple" } },
 })
 
+local function open_vault_explorer()
+  local vault = "/Users/bernatskrabec/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault"
+  require("snacks.explorer").open({
+    cwd = vault,
+  })
+end
+
 local function goto_daily(delta)
   local path = vim.api.nvim_buf_get_name(0)
   local fname = vim.fn.fnamemodify(path, ":t")
@@ -141,6 +148,7 @@ return {
     { "<leader>os", search_project_scratch_notes, desc = "Search project scratch notes" },
 
     -- general obsidian
+    { "<leader>ox", open_vault_explorer, desc = "Quick switch notes" },
     { "<leader>oq", "<cmd>Obsidian quick_switch<cr>", desc = "Quick switch notes" },
     { "<leader>of", "<cmd>Obsidian search<cr>", desc = "Search notes" },
     { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Show backlinks" },
