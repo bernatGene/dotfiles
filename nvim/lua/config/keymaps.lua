@@ -57,3 +57,60 @@ vim.keymap.set("n", "<leader>z", function()
     end
   end)
 end, { desc = "Set spell language" })
+
+--timew
+local wk = require("which-key")
+local timew = require("custom/timew")
+wk.add({
+  { "<leader>t", group = "timew" },
+
+  {
+    "<leader>tc",
+    function()
+      timew.start("CODE")
+    end,
+    desc = "Start CODE",
+    icon = { icon = "", color = "green" },
+  },
+  {
+    "<leader>tw",
+    function()
+      timew.start("WRIT")
+    end,
+    desc = "Start WRIT",
+    icon = { icon = "", color = "yellow" },
+  },
+  {
+    "<leader>tp",
+    function()
+      timew.start("PROC")
+    end,
+    desc = "Start PROC",
+    icon = { icon = "", color = "red" },
+  },
+  {
+    "<leader>tr",
+    function()
+      timew.start("READ")
+    end,
+    desc = "Start READ",
+    icon = { icon = "", color = "blue" },
+  },
+  {
+    "<leader>td",
+    function()
+      timew.start("DRAW")
+    end,
+    desc = "Start DRAW",
+    icon = { icon = "", color = "azure" },
+  },
+
+  {
+    "<leader>ts",
+    function()
+      timew.stop()
+    end,
+    desc = "STOPPED",
+    icon = { icon = "", color = "grey" },
+  },
+}, { mode = "n" })

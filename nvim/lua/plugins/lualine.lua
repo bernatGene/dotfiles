@@ -1,4 +1,6 @@
 local git_diff_cache = require("custom/git_diff_cache")
+local timew = require("custom/timew")
+timew.init()
 
 return {
   "nvim-lualine/lualine.nvim",
@@ -16,6 +18,9 @@ return {
               return git_diff_cache.diff
             end,
           },
+        },
+        lualine_x = {
+          timew.current,
         },
       },
     }
