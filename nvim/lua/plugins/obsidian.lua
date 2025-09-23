@@ -229,6 +229,9 @@ return {
     },
     picker = { name = "telescope.nvim" },
     ui = { enable = false },
+    footer = {
+      enabled = false,
+    },
     checkbox = { order = { " ", "x" } },
     attachments = {
       img_folder = "assets/imgs",
