@@ -1,3 +1,14 @@
+local function system_theme()
+  local h = io.popen([[osascript -e 'tell app "System Events" to return dark mode of appearance preferences']])
+  if h == nil then
+    return "dark"
+  end
+  local res = h:read("*a")
+  h:close()
+  return res:match("true") and "dark" or "light"
+end
+
+local theme = system_theme()
 return {
   "projekt0n/github-nvim-theme",
   name = "github-theme",
@@ -10,7 +21,6 @@ return {
       },
     })
 
-    vim.cmd("colorscheme github_dark")
-    -- vim.cmd("colorscheme github_light")
+    vim.cmd.colorscheme(theme == "light" and "github_light" or "github_dark")
   end,
 }

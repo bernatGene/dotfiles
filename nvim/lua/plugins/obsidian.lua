@@ -88,10 +88,10 @@ local function search_project_scratch_notes()
   if not exists then
     return
   end
-  require("telescope.builtin").find_files({
-    prompt_title = "Project Scratch Notes - " .. project_name,
+  require("fzf-lua").files({
+    prompt = "Project Scratch Notes - " .. project_name,
     cwd = scratch_dir,
-    search_file = "*.md",
+    fd_opts = "--type f --extension md",
   })
 end
 
@@ -118,7 +118,6 @@ return {
   ft = "markdown",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-telescope/telescope.nvim",
     "saghen/blink.cmp",
     "folke/snacks.nvim",
   },
@@ -227,7 +226,7 @@ return {
         end,
       },
     },
-    picker = { name = "telescope.nvim" },
+    picker = { name = "fzf-lua" },
     ui = { enable = false },
     footer = {
       enabled = false,
