@@ -17,11 +17,11 @@ function newnote --description 'create or open a note, then copy its contents'
 
     if test $status -eq 0
         if type -q pbcopy
-            pbcopy < $file
+            pbcopy <$file
         else if type -q xclip
-            xclip -selection clipboard < $file
+            xclip -selection clipboard <$file
         else if type -q wl-copy
-            wl-copy < $file
+            wl-copy <$file
         else
             echo "No clipboard utility found" >&2
             return 1

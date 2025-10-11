@@ -5,7 +5,7 @@ wk.add({
 })
 
 local function open_vault_explorer()
-  local vault = "/Users/bernatskrabec/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault"
+  local vault = "/Users/bernat/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault"
   require("snacks.explorer").open({
     cwd = vault,
   })
@@ -183,7 +183,7 @@ return {
     workspaces = {
       {
         name = "main",
-        path = "/Users/bernatskrabec/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault",
+        path = "/Users/bernat/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault",
       },
     },
     notes_subdir = nil,
