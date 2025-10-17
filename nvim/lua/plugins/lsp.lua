@@ -26,7 +26,7 @@ return {
             analysis = {
               -- disable all type checking
               typeCheckingMode = "off",
-              -- or fine-tune specific diagnostics:
+              autoImportCompletions = false,
             },
           },
         },
