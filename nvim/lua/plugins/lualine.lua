@@ -1,5 +1,7 @@
 local git_diff_cache = require("custom/git_diff_cache")
 local timew = require("custom/timew")
+local chime = require("custom/campanar")
+chime.setup()
 timew.init()
 
 return {
@@ -20,7 +22,7 @@ return {
           },
         },
         lualine_x = {
-          timew.current,
+          chime.status,
         },
       },
     }
