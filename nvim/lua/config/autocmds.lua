@@ -7,12 +7,22 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 --
+
+-- avoids adding > below a line with > in svelte files.
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "svelte",
+  callback = function()
+    vim.opt_local.formatoptions:remove({ "r", "o" })
+  end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "floggraph",
   callback = function()
     vim.opt_local.spell = false
   end,
 })
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   callback = function()
