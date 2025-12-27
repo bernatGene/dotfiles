@@ -18,3 +18,5 @@ newnote() {
 }
 
 alias nn=newnote
+
+. "$HOME/.local/bin/env"

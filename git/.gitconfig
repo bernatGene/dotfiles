@@ -1,0 +1,25 @@
+[user]
+  name = Bernat
+
+[include]
+  path = ~/.gitconfig.local
+
+[includeIf "gitdir:~/p/sc/"]
+  path = ~/.gitconfig.work
+
+[includeIf "gitdir:~/p/personal/"]
+  path = ~/.gitconfig.personal
+
+[push]
+	autoSetupRemote = true
+
+[alias]
+  push-ticket = "!f(){ \
+    [ \"$#\" -gt 0 ] || { echo \"usage: git push-ticket MOT-560 [MOT-561 ...]\" >&2; exit 2; }; \
+    refs=\"\"; \
+    for t in \"$@\"; do \
+      refs=\"$refs refs/heads/feat/${t}-*:refs/heads/feat/${t}-*\"; \
+      refs=\"$refs refs/heads/fix/${t}-*:refs/heads/fix/${t}-*\"; \
+    done; \
+    git push origin --force-with-lease $refs; \
+  }; f"

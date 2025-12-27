@@ -31,6 +31,7 @@ return {
           },
         },
       },
+      ty = { enabled = false }, -- will come around to that but not right now
     },
   },
 }
