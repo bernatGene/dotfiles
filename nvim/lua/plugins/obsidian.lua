@@ -1,13 +1,24 @@
 -- ~/.config/nvim/lua/plugins/obsidian.lua
 local wk = require("which-key")
+local vault_path = "/Users/bernat/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault"
 wk.add({
   { "<leader>o", group = "obsidian", desc = "obsidian", icon = { icon = "󰇈", color = "purple" } },
 })
 
 local function open_vault_explorer()
-  local vault = "/Users/bernat/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault"
+  local buf_path = vim.api.nvim_buf_get_name(0)
   local mf = require("mini.files")
-  mf.open(vault, true)
+  if buf_path == "" then
+    mf.open(vault_path, true, { windows = { preview = true } })
+  end
+  buf_path = vim.fs.normalize(buf_path)
+  local vault_norm = vim.fs.normalize(vault_path)
+  local inside_vault = buf_path == vault_norm or buf_path:sub(1, #vault_norm + 1) == vault_norm .. "/"
+  if not inside_vault then
+    mf.open(vault_path, true)
+    return
+  end
+  mf.open(buf_path, true)
 end
 
 local function goto_daily(delta)
@@ -146,7 +157,7 @@ return {
     { "<leader>os", search_project_scratch_notes, desc = "Search project scratch notes" },
 
     -- general obsidian
-    { "<leader>ox", open_vault_explorer, desc = "Quick switch notes" },
+    { "<leader>ox", open_vault_explorer, desc = "Explore notes" },
     { "<leader>oq", "<cmd>Obsidian quick_switch<cr>", desc = "Quick switch notes" },
     { "<leader>of", "<cmd>Obsidian search<cr>", desc = "Search notes" },
     { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Show backlinks" },
@@ -182,7 +193,7 @@ return {
     workspaces = {
       {
         name = "main",
-        path = "/Users/bernat/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault",
+        path = vault_path,
       },
     },
     notes_subdir = nil,
