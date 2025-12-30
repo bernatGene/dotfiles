@@ -6,9 +6,8 @@ wk.add({
 
 local function open_vault_explorer()
   local vault = "/Users/bernat/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault"
-  require("snacks.explorer").open({
-    cwd = vault,
-  })
+  local mf = require("mini.files")
+  mf.open(vault, true)
 end
 
 local function goto_daily(delta)
@@ -119,7 +118,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "saghen/blink.cmp",
-    "folke/snacks.nvim",
+    "nvim-mini/mini.files",
   },
   keys = {
     -- daily notes
