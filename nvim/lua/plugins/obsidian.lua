@@ -202,7 +202,11 @@ return {
     },
     new_notes_location = "current_dir",
     open_notes_in = "current",
-    note_id_func = function(title)
+    note_id_func = function(title, dir)
+      local daily_notes_dir = Obsidian.dir / Obsidian.opts.daily_notes.folder
+      if daily_notes_dir == dir then
+        return title
+      end
       local suffix = ""
       if title ~= nil then
         suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
