@@ -8,17 +8,18 @@ wk.add({
 local function open_vault_explorer()
   local buf_path = vim.api.nvim_buf_get_name(0)
   local mf = require("mini.files")
+  local opts = { windows = { preview = true } }
   if buf_path == "" then
-    mf.open(vault_path, true, { windows = { preview = true } })
+    mf.open(vault_path, true, opts)
   end
   buf_path = vim.fs.normalize(buf_path)
   local vault_norm = vim.fs.normalize(vault_path)
   local inside_vault = buf_path == vault_norm or buf_path:sub(1, #vault_norm + 1) == vault_norm .. "/"
   if not inside_vault then
-    mf.open(vault_path, true)
+    mf.open(vault_path, true, opts)
     return
   end
-  mf.open(buf_path, true)
+  mf.open(buf_path, true, opts)
 end
 
 local function goto_daily(delta)
