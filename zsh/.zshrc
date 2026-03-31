@@ -1,8 +1,5 @@
 autoload -Uz compinit && compinit
 
-# start fish only in interactive shell. 
-[[ $- == *i* ]] && fish 
-
 # create & edit a timestamped file, then copy its contents to the clipboard
 newnote() {
   local prefix=${1:-note_}
@@ -20,3 +17,9 @@ newnote() {
 alias nn=newnote
 
 . "$HOME/.local/bin/env"
+
+# opencode
+export PATH=/Users/bernat/.opencode/bin:$PATH
+
+# start fish only in interactive shell. 
+[[ $- == *i* ]] && fish 
