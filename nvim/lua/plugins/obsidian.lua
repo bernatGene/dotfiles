@@ -118,7 +118,9 @@ local function daily_link(ctx, offset, label)
     return ""
   end
   local t = os.time({ year = y, month = m, day = d })
-  local date = os.date(ctx.template_opts.date_format, t + offset * 86400)
+  -- Use daily_notes date_format from config (must match the daily_notes.date_format setting)
+  local date_format = "%Y-%m-%d-%a"
+  local date = os.date(date_format, t + offset * 86400)
   return string.format("[[dailynote/%s|%s]]", date, label)
 end
 
@@ -191,6 +193,7 @@ return {
     },
   },
   opts = {
+    legacy_commands = false,
     workspaces = {
       {
         name = "main",
@@ -248,13 +251,17 @@ return {
     },
     checkbox = { order = { " ", "x" } },
     attachments = {
-      img_folder = "assets/imgs",
+      folder = "assets/imgs",
       img_name_func = function()
         return string.format("Pasted image %s", os.date("%Y%m%d%H%M%S"))
       end,
       confirm_img_paste = true,
     },
-    disable_frontmatter = true,
-    preferred_link_style = "wiki",
+    frontmatter = {
+      enabled = false,
+    },
+    link = {
+      style = "wiki",
+    },
   },
 }
