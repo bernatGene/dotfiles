@@ -6,7 +6,7 @@ return {
         ["typescript-tools"] = true,
         ["tsserver"] = true,
         ["ts_ls"] = true,
-        ["svelte"] = true,
+        ["svelte"] = false,
       },
     })
   end,

@@ -1,6 +1,9 @@
 return {
   "neovim/nvim-lspconfig",
   opts = {
+    inlay_hints = {
+      exclude = { "svelte" },
+    },
     diagnostics = {
       float = {
         style = "minimal",
