@@ -6,6 +6,14 @@
   "plugin": [
     "@slkiser/opencode-quota"
   ],
+  "experimental": {
+    "quotaToast": {
+      "enabledProviders": [
+        "openai",
+        "opencode-go"
+      ]
+    }
+  },
   "permission": {
     "*": "allow",
     "read": {

@@ -1,5 +1,8 @@
 .DS_store
 
+# OpenCode local dependencies
+opencode/node_modules/
+
 # OpenCode local secrets/runtime
 opencode/opencode-quota/opencode-go.json
 opencode/opencode-quota/*.local.json
