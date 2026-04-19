@@ -8,6 +8,7 @@
   ],
   "experimental": {
     "quotaToast": {
+      "enableToast": false,
       "enabledProviders": [
         "openai",
         "opencode-go"
