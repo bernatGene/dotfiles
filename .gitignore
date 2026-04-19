@@ -1,1 +1,7 @@
 .DS_store
+
+# OpenCode local secrets/runtime
+opencode/opencode-quota/opencode-go.json
+opencode/opencode-quota/*.local.json
+opencode/**/copilot-quota-token.json
+opencode/**/auth.json

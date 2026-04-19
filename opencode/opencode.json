@@ -3,8 +3,11 @@
   "autoupdate": true,
   "default_agent": "plan",
   "share": "disabled",
+  "plugin": [
+    "@slkiser/opencode-quota"
+  ],
   "permission": {
-    "*": "ask",
+    "*": "allow",
     "read": {
       "*": "allow",
       "*.env": "deny",
@@ -27,10 +30,17 @@
       "*.key": "deny",
       "*secret*": "deny"
     },
+    "grep": "allow",
+    "glob": "allow",
     "bash": {
       "*": "ask",
+      "ls *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
       "git status *": "allow",
       "git diff *": "allow",
+      "git log *": "allow",
+      "git branch -a": "allow",
       "env": "deny",
       "printenv *": "deny",
       "export *": "deny",
@@ -40,13 +50,16 @@
       "rm -r *": "deny",
       "ssh *": "deny",
       "curl *": "ask",
+      "npm run check": "allow",
+      "npx prettier *": "allow",
       "npm install *": "ask",
       "pip install *": "ask",
       "brew install *": "ask",
       "uv add *": "ask",
-      "uv sync": "ask"
+      "uv sync": "ask",
+      "uv run *": "allow"
     },
-    "webfetch": "ask",
+    "webfetch": "allow",
     "external_directory": "ask",
     "tools": {
       "websearch": "allow"
