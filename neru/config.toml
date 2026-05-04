@@ -81,6 +81,7 @@ ignore_clickable_check = false
 
 [hints.hotkeys]
 "Escape" = "idle"
+"Shift+F" = ["idle", "action wait_for_mode_exit", "hints"]
 "Space" = "action left_click"
 "Backspace" = "action backspace"
 "Shift+L" = "action left_click"
@@ -214,6 +215,7 @@ scroll_step_full = 1000000                  # Pixels for gg/G (top/bottom)
 "PageUp" = "action page_up"
 "d" = "action page_down"
 "PageDown" = "action page_down"
+"c" = "action move_mouse --center"
 "Space" = "action left_click"
 "Shift+R" = "action right_click"
 "Shift+M" = "action middle_click"
@@ -223,6 +225,10 @@ scroll_step_full = 1000000                  # Pixels for gg/G (top/bottom)
 "Shift+J" = "action move_mouse_relative --dx=0 --dy=10"
 "Shift+K" = "action move_mouse_relative --dx=0 --dy=-10"
 "Shift+L" = "action move_mouse_relative --dx=10 --dy=0"
+"Ctrl+H" = "action move_mouse_relative --dx=-80 --dy=0"
+"Ctrl+J" = "action move_mouse_relative --dx=0 --dy=80"
+"Ctrl+K" = "action move_mouse_relative --dx=0 --dy=-80"
+"Ctrl+L" = "action move_mouse_relative --dx=80 --dy=0"
 "Up" = "action move_mouse_relative --dx=0 --dy=-10"
 "Down" = "action move_mouse_relative --dx=0 --dy=10"
 "Left" = "action move_mouse_relative --dx=-10 --dy=0"
