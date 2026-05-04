@@ -3,6 +3,7 @@
   "autoupdate": true,
   "default_agent": "plan",
   "share": "disabled",
+  "lsp": false,
   "plugin": [
     "@slkiser/opencode-quota"
   ],
@@ -69,7 +70,7 @@
       "uv sync": "ask",
       "uv run *": "ask",
       "uv run pytest": "allow",
-      "uv run zajec *": "allow",
+      "uv run zajec *": "allow"
     },
     "webfetch": "allow",
     "external_directory": "ask",
