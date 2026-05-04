@@ -45,6 +45,11 @@ uv run zajec publish-comment --repo owner/repo --pr 123 --body-file review.md
 
 > **Track progress with todo tool** - At the start of each phase, update todo list to mark current phase as in_progress and previous as completed.
 
+**Do not use subagents**:
+  - subagents may use a forbidden tool and this will cause the review to stall (some tools
+  are auto denied in this environment, we can recover if you use them, but not if
+  subagents do)
+
 ### Phase 1: Gather Context (2-3 min)
 
  **Fetch PR discussion context**

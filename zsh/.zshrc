@@ -18,6 +18,8 @@ alias nn=newnote
 
 . "$HOME/.local/bin/env"
 
+export EDITOR=nvim
+
 # opencode
 export PATH=/Users/bernat/.opencode/bin:$PATH
 
