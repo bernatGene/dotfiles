@@ -49,7 +49,7 @@ enabled = true
 hint_characters = "asdfghjkl"               # Characters used for hint labels
 max_depth = 50                              # Max accessibility tree depth (0 = unlimited)
 parallel_threshold = 20                     # Min children to trigger parallel tree building
-include_menubar_hints = false
+include_menubar_hints = true
 additional_menubar_hints_targets = [
     "com.apple.TextInputMenuAgent",
     "com.apple.controlcenter",
@@ -199,7 +199,7 @@ size = 3
 # Scroll mode
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#scroll-mode
 [scroll]
-scroll_step = 50                            # Pixels per j/k press
+scroll_step = 150                            # Pixels per j/k press
 scroll_step_half = 500                      # Pixels for d/u (half page)
 scroll_step_full = 1000000                  # Pixels for gg/G (top/bottom)
 
@@ -287,6 +287,14 @@ move_mouse_enabled = false                  # Enable smooth mouse movement
 steps = 10                                  # Number of intermediate positions
 max_duration = 200                          # Maximum animation duration in ms
 duration_per_pixel = 0.1                    # Ms per pixel for adaptive duration
+
+# Smooth scroll (animates scroll actions)
+# See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#smooth-scroll
+[smooth_scroll]
+enabled = true                              # Enable smooth scrolling
+steps = 100                                  # Number of animation steps
+max_duration = 180                          # Maximum animation duration in ms
+duration_per_pixel = 5.0                    # Ms per pixel for adaptive duration
 
 # Systray
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#systray
