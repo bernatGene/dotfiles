@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Editor wrapper for opencode chat-message edits. It preserves the session cwd
+# for Neovim so temporary markdown buffers can resolve repo-relative @ paths.
+
+root=$PWD
+if command -v git >/dev/null 2>&1; then
+  git_root=$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null)
+  if [ -n "$git_root" ]; then
+    root=$git_root
+  fi
+fi
+
+OPENCODE_EDIT_FILE=$1 \
+OPENCODE_EDIT_CWD=$PWD \
+OPENCODE_EDIT_ROOT=$root \
+exec nvim "$@"

@@ -51,3 +51,8 @@ end
 
 alias nn=newnote
 alias nnl=newnote_last
+
+function opencode --description 'Run opencode with Neovim editor context'
+    set -l editor "$HOME/p/dotfiles/bin/opencode-nvim-editor"
+    env VISUAL="$editor" EDITOR="$editor" command opencode $argv
+end

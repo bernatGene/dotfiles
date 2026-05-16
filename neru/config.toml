@@ -199,7 +199,7 @@ size = 3
 # Scroll mode
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#scroll-mode
 [scroll]
-scroll_step = 150                            # Pixels per j/k press
+scroll_step = 100                            # Pixels per j/k press
 scroll_step_half = 500                      # Pixels for d/u (half page)
 scroll_step_full = 1000000                  # Pixels for gg/G (top/bottom)
 
@@ -292,9 +292,9 @@ duration_per_pixel = 0.1                    # Ms per pixel for adaptive duration
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#smooth-scroll
 [smooth_scroll]
 enabled = true                              # Enable smooth scrolling
-steps = 100                                  # Number of animation steps
-max_duration = 180                          # Maximum animation duration in ms
-duration_per_pixel = 5.0                    # Ms per pixel for adaptive duration
+steps = 300                                  # Number of animation steps
+max_duration = 300                          # Maximum animation duration in ms
+duration_per_pixel = 20.00                    # Ms per pixel for adaptive duration
 
 # Systray
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#systray
