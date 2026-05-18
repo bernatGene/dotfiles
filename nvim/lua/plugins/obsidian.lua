@@ -1,9 +1,17 @@
 -- ~/.config/nvim/lua/plugins/obsidian.lua
 local wk = require("which-key")
 local vault_path = "/Users/bernat/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault"
+local daily_notes_folder = "dailynote"
+local daily_notes_date_format = "%Y-%m-%d-%a"
 wk.add({
   { "<leader>o", group = "obsidian", desc = "obsidian", icon = { icon = "󰇈", color = "purple" } },
 })
+
+local function path_in_dir(path, dir)
+  path = vim.fs.normalize(path)
+  dir = vim.fs.normalize(dir)
+  return path == dir or path:sub(1, #dir + 1) == dir .. "/"
+end
 
 local function open_vault_explorer()
   local buf_path = vim.api.nvim_buf_get_name(0)
@@ -14,8 +22,7 @@ local function open_vault_explorer()
   end
   buf_path = vim.fs.normalize(buf_path)
   local vault_norm = vim.fs.normalize(vault_path)
-  local inside_vault = buf_path == vault_norm or buf_path:sub(1, #vault_norm + 1) == vault_norm .. "/"
-  if not inside_vault then
+  if not path_in_dir(buf_path, vault_norm) then
     mf.open(vault_path, true, opts)
     return
   end
@@ -118,10 +125,99 @@ local function daily_link(ctx, offset, label)
     return ""
   end
   local t = os.time({ year = y, month = m, day = d })
-  -- Use daily_notes date_format from config (must match the daily_notes.date_format setting)
-  local date_format = "%Y-%m-%d-%a"
-  local date = os.date(date_format, t + offset * 86400)
+  local date = os.date(daily_notes_date_format, t + offset * 86400)
   return string.format("[[dailynote/%s|%s]]", date, label)
+end
+
+local function today_daily_note_path()
+  return table.concat({ vault_path, daily_notes_folder, os.date(daily_notes_date_format) .. ".md" }, "/")
+end
+
+local function mention_link_for_path(path)
+  return "[[" .. vim.fn.fnamemodify(path, ":t:r") .. "]]"
+end
+
+local function daily_note_has_link(lines, link)
+  local escaped_link = vim.pesc(link)
+  for _, line in ipairs(lines) do
+    if line:find(escaped_link) then
+      return true
+    end
+  end
+  return false
+end
+
+local function insert_daily_mention(lines, mention_line)
+  local mentions_heading = "## Mentions"
+  local heading_index
+  for i, line in ipairs(lines) do
+    if line == mentions_heading then
+      heading_index = i
+      break
+    end
+  end
+
+  if not heading_index then
+    if #lines > 0 and lines[#lines] ~= "" then
+      table.insert(lines, "")
+    end
+    table.insert(lines, mentions_heading)
+    table.insert(lines, "")
+    table.insert(lines, mention_line)
+    return lines
+  end
+
+  local insert_at = heading_index + 1
+  while insert_at <= #lines and lines[insert_at] == "" do
+    insert_at = insert_at + 1
+  end
+  table.insert(lines, insert_at, mention_line)
+  return lines
+end
+
+local function add_daily_mention(bufnr)
+  local path = vim.api.nvim_buf_get_name(bufnr)
+  if path == "" or vim.fn.fnamemodify(path, ":e") ~= "md" then
+    return
+  end
+
+  path = vim.fs.normalize(path)
+  local vault_norm = vim.fs.normalize(vault_path)
+  if not path_in_dir(path, vault_norm) then
+    return
+  end
+
+  local daily_notes_dir = vim.fs.normalize(vault_path .. "/" .. daily_notes_folder)
+  if path_in_dir(path, daily_notes_dir) then
+    return
+  end
+
+  local link = mention_link_for_path(path)
+  local daily_path = vim.fs.normalize(today_daily_note_path())
+  local daily_dir = vim.fn.fnamemodify(daily_path, ":h")
+  vim.fn.mkdir(daily_dir, "p")
+
+  local lines = {}
+  if vim.fn.filereadable(daily_path) == 1 then
+    lines = vim.fn.readfile(daily_path)
+  end
+
+  if daily_note_has_link(lines, link) then
+    return
+  end
+
+  insert_daily_mention(lines, "- " .. link)
+  vim.fn.writefile(lines, daily_path)
+end
+
+local function setup_daily_mentions()
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    group = vim.api.nvim_create_augroup("ObsidianDailyMentions", { clear = true }),
+    pattern = "*.md",
+    callback = function(args)
+      add_daily_mention(args.buf)
+    end,
+  })
 end
 
 return {
@@ -202,8 +298,8 @@ return {
     },
     notes_subdir = nil,
     daily_notes = {
-      folder = "dailynote",
-      date_format = "%Y-%m-%d-%a",
+      folder = daily_notes_folder,
+      date_format = daily_notes_date_format,
       alias_format = "%B %-d, %Y",
       template = "dailynotetemplate.md",
       default_tags = { "daily-notes" },
@@ -264,4 +360,8 @@ return {
       style = "wiki",
     },
   },
+  config = function(_, opts)
+    require("obsidian").setup(opts)
+    setup_daily_mentions()
+  end,
 }
