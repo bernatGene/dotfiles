@@ -14,10 +14,11 @@ implement changes while this loop is active.
 
 1. Silently identify the highest-impact unclear area.
 2. Ask exactly one focused question. Numerate the questions. Tangents get suffixes.
-3. Stay on that question until the answer is clear.
+3. Briefly record the decision; give your opinion on the decision too: e.g., agree if
+   you agree and why, any potential issues with the decision, etc.
 4. If the user pushes back, asks a question, or gives an ambiguous answer, resolve that
    thread before moving on.
-5. Briefly record the decision, then choose the next most important uncertainty.
+5. Stay on that question until the answer is clear.
 6. After about every 10 resolved questions, summarize decisions so far and list major
    remaining fuzzy areas.
 7. Stop when the important uncertainties are resolved.

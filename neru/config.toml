@@ -79,9 +79,11 @@ clickable_roles = [
 ]
 ignore_clickable_check = false
 
+
+
 [hints.hotkeys]
 "Escape" = "idle"
-"Shift+F" = ["idle", "action wait_for_mode_exit", "hints"]
+"." = ["idle", "action wait_for_mode_exit", "hints"]
 "Space" = "action left_click"
 "Backspace" = "action backspace"
 "Shift+L" = "action left_click"
@@ -89,20 +91,21 @@ ignore_clickable_check = false
 "Shift+M" = "action middle_click"
 "Shift+I" = "action mouse_down"
 "Shift+U" = "action mouse_up"
+"Shift+J" = ["idle", "action wait_for_mode_exit", "scroll"]
 "Up" = "action move_mouse_relative --dx=0 --dy=-10"
 "Down" = "action move_mouse_relative --dx=0 --dy=10"
 "Left" = "action move_mouse_relative --dx=-10 --dy=0"
 "Right" = "action move_mouse_relative --dx=10 --dy=0"
 
 [hints.additional_ax_support]
-enable = false                              # Enable enhanced AX for Electron/Chromium/Firefox apps
-additional_electron_bundles = []
+enable = true                              # Enable enhanced AX for Electron/Chromium/Firefox apps
+additional_electron_bundles = ["com.hnc.discord"]
 additional_chromium_bundles = []
 additional_firefox_bundles = []
 
 [hints.ui]
-font_size = 10
-font_family = ""                            # Empty = system font
+font_size = 12
+font_family = "monaco"                            # Empty = system font
 border_radius = -1                          # -1 = auto pill
 padding_x = -1                              # -1 = auto based on font size
 padding_y = -1                              # -1 = auto based on font size
@@ -175,6 +178,7 @@ duration_ms = 180                          # Recursive-grid animation duration i
 "Left" = "action move_mouse_relative --dx=-10 --dy=0"
 "Right" = "action move_mouse_relative --dx=10 --dy=0"
 
+
 [recursive_grid.ui]
 line_width = 1
 font_size = 10
@@ -199,8 +203,8 @@ size = 3
 # Scroll mode
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#scroll-mode
 [scroll]
-scroll_step = 100                            # Pixels per j/k press
-scroll_step_half = 500                      # Pixels for d/u (half page)
+scroll_step = 150                            # Pixels per j/k press
+scroll_step_half = 700                      # Pixels for d/u (half page)
 scroll_step_full = 1000000                  # Pixels for gg/G (top/bottom)
 
 [scroll.hotkeys]
@@ -212,8 +216,10 @@ scroll_step_full = 1000000                  # Pixels for gg/G (top/bottom)
 "gg" = "action go_top"
 "Shift+G" = "action go_bottom"
 "u" = "action page_up"
+"Ctrl+U" = "action page_up"
 "PageUp" = "action page_up"
 "d" = "action page_down"
+"Ctrl+D" = "action page_down"
 "PageDown" = "action page_down"
 "c" = "action move_mouse --center"
 "Space" = "action left_click"
@@ -294,7 +300,7 @@ duration_per_pixel = 0.1                    # Ms per pixel for adaptive duration
 enabled = true                              # Enable smooth scrolling
 steps = 300                                  # Number of animation steps
 max_duration = 300                          # Maximum animation duration in ms
-duration_per_pixel = 20.00                    # Ms per pixel for adaptive duration
+duration_per_pixel = 20.0                    # Ms per pixel for adaptive duration
 
 # Systray
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#systray

@@ -82,6 +82,20 @@ local function new_project_scratch_note()
   end
 end
 
+local function new_root_note()
+  vim.ui.input({ prompt = "New root note title: " }, function(input)
+    if input and input ~= "" then
+      local note = require("obsidian.note").create({
+        id = input,
+        dir = vault_path,
+        template = Obsidian.opts.note.template,
+        should_write = true,
+      })
+      note:open({ sync = true })
+    end
+  end)
+end
+
 local function open_last_project_scratch_note()
   local scratch_dir, project_name, exists = project_scratch_dir(true)
   if not exists then
@@ -273,6 +287,7 @@ return {
       end,
       desc = "New note in current dir",
     },
+    { "<leader>om", new_root_note, desc = "New note in vault root" },
     { "<leader>ol", ":Obsidian link<cr>", mode = "v", desc = "Link selected text" },
     { "<leader>oL", ":Obsidian link_new<cr>", mode = "v", desc = "Link to new note" },
     {
