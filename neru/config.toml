@@ -203,7 +203,7 @@ size = 3
 # Scroll mode
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#scroll-mode
 [scroll]
-scroll_step = 150                            # Pixels per j/k press
+scroll_step = 100                            # Pixels per j/k press
 scroll_step_half = 700                      # Pixels for d/u (half page)
 scroll_step_full = 1000000                  # Pixels for gg/G (top/bottom)
 
@@ -285,14 +285,6 @@ padding_y = -1
 border_radius = -1
 indicator_x_offset = -40
 indicator_y_offset = 20
-
-# Smooth cursor (animates cursor movement between positions)
-# See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#smooth-cursor
-[smooth_cursor]
-move_mouse_enabled = false                  # Enable smooth mouse movement
-steps = 10                                  # Number of intermediate positions
-max_duration = 200                          # Maximum animation duration in ms
-duration_per_pixel = 0.1                    # Ms per pixel for adaptive duration
 
 # Smooth scroll (animates scroll actions)
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#smooth-scroll
