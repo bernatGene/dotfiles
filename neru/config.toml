@@ -39,14 +39,16 @@ text = "#E8EEFF"
 "Primary+Shift+G" = "grid"
 "Primary+Shift+C" = "__disabled__"
 "Primary+Shift+S" = "__disabled__"
-"Cmd+Shift+K" = "recursive_grid"
+"Cmd+Shift+K" = "recursive_grid --cursor-selection-mode hold"
+"Cmd+Escape" = "recursive_grid --cursor-selection-mode hold"
+"Cmd+J" = "scroll"
 "Cmd+Shift+J" = "scroll"
 
 # Hint mode
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#hint-mode
 [hints]
 enabled = true
-hint_characters = "asdfghjkl"               # Characters used for hint labels
+hint_characters = "asdfghjklertyuiocvbnm"               # Characters used for hint labels
 max_depth = 50                              # Max accessibility tree depth (0 = unlimited)
 parallel_threshold = 20                     # Min children to trigger parallel tree building
 include_menubar_hints = true
@@ -146,51 +148,54 @@ border_width = 1
 # Recursive grid mode (recommended)
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#recursive-grid-mode-recommended
 [recursive_grid]
-enabled = true
-grid_cols = 2                               # Number of columns (>= 1)
-grid_rows = 2                               # Number of rows (>= 1)
-keys = "uijk"                               # Cell selection keys (must be grid_cols * grid_rows chars)
-min_size_width = 25                         # Stop subdividing below this width (px)
-min_size_height = 25                        # Stop subdividing below this height (px)
-max_depth = 10                              # Maximum recursion levels (1–20)
+grid_cols = 5
+grid_rows = 5
+keys = "qwertyuiopasdfghjkl;cvbnm"
+
+min_size_height = 1
+min_size_width = 1
+max_depth = 10
+
+[recursive_grid.ui]
+line_color = "#44000000"
+text_color = "#FF111827"
+highlight_color = "#11FFFFFF"
+font_size = 14
+label_background = true
+label_background_color = "#DDFFFFFF"
 
 [recursive_grid.animation]
-enabled = false                            # Opt in to native depth transition animation on supported platforms
-duration_ms = 180                          # Recursive-grid animation duration in milliseconds
+enabled = true
+duration_ms = 50                        # Recursive-grid animation duration in milliseconds
 
 [recursive_grid.hotkeys]
 "Escape" = "idle"
 "`" = "toggle-cursor-follow-selection"
-"Space" = "action left_click"
+"Shift+S" = ["action move_mouse --selection", "scroll"]
+"Shift+J" = ["action move_mouse --selection", "scroll", "action scroll_down"]
+"Shift+K" = ["action move_mouse --selection", "scroll", "action scroll_up"]
+"Space" = ["action left_click", "action reset"]
 "Enter" = "action reset"
+"Tab" = "action reset"
 "Backspace" = "action backspace"
 "Shift+L" = "action left_click"
 "Shift+R" = "action right_click"
 "Shift+M" = "action middle_click"
 "Shift+I" = "action mouse_down"
 "Shift+U" = "action mouse_up"
-"h" = "action move_mouse_relative --dx=-10 --dy=0"
-"l" = "action move_mouse_relative --dx=10 --dy=0"
-"Shift+J" = "action move_mouse_relative --dx=0 --dy=10"
-"Shift+K" = "action move_mouse_relative --dx=0 --dy=-10"
+"Ctrl+H" = "action move_mouse_relative --dx=-10 --dy=0"
+"Ctrl+J" = "action move_mouse_relative --dx=0 --dy=10"
+"Ctrl+K" = "action move_mouse_relative --dx=0 --dy=-10"
+"Ctrl+L" = "action move_mouse_relative --dx=10 --dy=0"
 "Up" = "action move_mouse_relative --dx=0 --dy=-10"
 "Down" = "action move_mouse_relative --dx=0 --dy=10"
 "Left" = "action move_mouse_relative --dx=-10 --dy=0"
 "Right" = "action move_mouse_relative --dx=10 --dy=0"
-
-
-[recursive_grid.ui]
-line_width = 1
-font_size = 10
-font_family = ""
-label_background = false                    # Add rounded backgrounds behind cell labels
-label_background_padding_x = -1
-label_background_padding_y = -1
-label_background_border_radius = -1
-label_background_border_width = 1
-sub_key_preview = false                     # Draw miniature key grid inside each cell
-sub_key_preview_font_size = 8
-sub_key_preview_autohide_multiplier = 1.5
+"Ctrl+U" = "action page_up"
+"Ctrl+D" = "action page_down"
+"Ctrl+T" = "action go_top"
+"Ctrl+B" = "action go_bottom"
+"Ctrl+M" = "action move_mouse"
 
 # Virtual pointer
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#virtual-pointer
@@ -209,6 +214,8 @@ scroll_step_full = 1000000                  # Pixels for gg/G (top/bottom)
 
 [scroll.hotkeys]
 "Escape" = "idle"
+"." = "recursive_grid --cursor-selection-mode hold"
+"r" = "recursive_grid --cursor-selection-mode hold"
 "k" = "action scroll_up"
 "j" = "action scroll_down"
 "h" = "action scroll_left"
