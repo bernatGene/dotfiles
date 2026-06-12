@@ -175,7 +175,7 @@ duration_ms = 50                        # Recursive-grid animation duration in m
 "Shift+J" = ["action move_mouse --selection", "scroll", "action scroll_down"]
 "Shift+K" = ["action move_mouse --selection", "scroll", "action scroll_up"]
 "Space" = ["action left_click", "action reset"]
-"Enter" = "action reset"
+"Enter" = "action left_click"
 "Tab" = "action reset"
 "Backspace" = "action backspace"
 "Shift+L" = "action left_click"
@@ -203,7 +203,9 @@ duration_ms = 50                        # Recursive-grid animation duration in m
 enabled = true
 
 [virtual_pointer.ui]
-size = 3
+size = 2
+color = "#FD3300"
+
 
 # Scroll mode
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#scroll-mode
