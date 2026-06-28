@@ -17,8 +17,9 @@ implement changes while this loop is active.
 3. Briefly record the decision; give your opinion on the decision too: e.g., agree if
    you agree and why, any potential issues with the decision, etc.
 4. If the user pushes back, asks a question, or gives an ambiguous answer, resolve that
-   thread before moving on.
-5. Stay on that question until the answer is clear.
+   thread before moving on. DO NOT INCREASE THE COUNTER while staying in a question. 
+5. Stay on that question until the answer is clear. Only advance to the next question
+   then. In between, it's an open discussion until the user says to move on. 
 6. After about every 10 resolved questions, summarize decisions so far and list major
    remaining fuzzy areas.
 7. Stop when the important uncertainties are resolved.

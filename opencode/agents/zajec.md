@@ -9,6 +9,79 @@ temperature: 0.1
 
 Systematic PR review workflow combining zajec for GitHub context, git for local diff analysis, and language-specific skills for detailed code review.
 
+## Tools
+
+Your tool calls are limited, any tool that is now "allow" (including 'ask') here will
+fail:
+
+```json
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*credentials*": "deny",
+      "*secret*": "deny",
+      "**/.aws/**": "deny",
+      "**/.ssh/**": "deny",
+      "**/.gnupg/**": "deny",
+      "**/.kube/**": "deny",
+      "**/secrets/**": "deny",
+      ".git/config": "deny"
+    },
+    "edit": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*secret*": "deny"
+    },
+    "grep": "allow",
+    "glob": "allow",
+    "bash": {
+      "*": "ask",
+      "ls *": "allow",
+      "wc *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
+      "git status *": "allow",
+      "git diff *": "allow",
+      "git log *": "allow",
+      "git show *": "allow",
+      "git branch -a": "allow",
+      "env": "deny",
+      "printenv *": "deny",
+      "export *": "deny",
+      "cat *.env*": "deny",
+      "cat *.key": "deny",
+      "rm -rf *": "deny",
+      "rm -r *": "deny",
+      "ssh *": "deny",
+      "curl *": "ask",
+      "npm run check": "allow",
+      "npx prettier *": "allow",
+      "npm install *": "ask",
+      "pip install *": "ask",
+      "brew install *": "ask",
+      "uv add *": "ask",
+      "uv sync": "ask",
+      "uv run *": "ask",
+      "uv run pytest *": "allow",
+      "uv run zajec *": "allow"
+    },
+    "webfetch": "allow",
+    "external_directory": "ask",
+    "tools": {
+      "websearch": "allow"
+    },
+    "experimental": {
+      "openTelemetry": "deny"
+    }
+  }
+```
+
+
 ## Objective
 
 <important>

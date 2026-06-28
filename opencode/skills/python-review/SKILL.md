@@ -11,7 +11,7 @@ Focus areas: advanced type patterns, async/await edge cases, testing organizatio
 
 ## Type Annotations
 
-### Use Modern Type Syntax (Python 3.12)
+### Use Modern Type Syntax (Python>=3.12)
 
 ```python
 # ❌ Old style - NEVER use in Python 3.12
