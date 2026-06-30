@@ -70,6 +70,8 @@ scroll_step_half = 700
 [scroll.hotkeys]
 "." = "recursive_grid --cursor-selection-mode hold"
 "r" = "recursive_grid --cursor-selection-mode hold"
+"m" = "action mouse_down"
+"Shift+M" = "action mouse_up"
 "Ctrl+U" = "action page_up"
 "Ctrl+D" = "action page_down"
 "c" = "action move_mouse --center"
