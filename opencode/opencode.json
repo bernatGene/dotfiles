@@ -5,17 +5,8 @@
   "share": "manual",
   "lsp": false,
   "plugin": [
-    "@slkiser/opencode-quota"
+    "@slkiser/opencode-quota@3.11.1"
   ],
-  "experimental": {
-    "quotaToast": {
-      "enableToast": false,
-      "enabledProviders": [
-        "openai",
-        "opencode-go"
-      ]
-    }
-  },
   "permission": {
     "*": "allow",
     "read": {

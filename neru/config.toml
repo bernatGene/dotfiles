@@ -37,8 +37,8 @@ grid_rows = 5
 keys = "qwertyuiopasdfghjkl;cvbnm"
 
 [recursive_grid.ui]
-line_color = "#44000000"
-text_color = "#FF111827"
+line_color = "#FF000000"
+text_color = "#00111827"
 highlight_color = "#11FFFFFF"
 font_size = 14
 

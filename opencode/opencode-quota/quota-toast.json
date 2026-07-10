@@ -1,0 +1,10 @@
+{
+  "enableToast": false,
+  "enabledProviders": [
+    "openai",
+    "opencode-go"
+  ],
+  "tuiSidebarPanel": {
+    "enabled": true
+  }
+}
