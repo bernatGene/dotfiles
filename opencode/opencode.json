@@ -4,8 +4,11 @@
   "default_agent": "plan",
   "share": "manual",
   "lsp": false,
+  "instructions": [
+    "instructions/model-routing.md"
+  ],
   "plugin": [
-    "@slkiser/opencode-quota@3.11.1"
+    "@slkiser/opencode-quota@3.11.2"
   ],
   "permission": {
     "*": "allow",
