@@ -6,5 +6,9 @@
   ],
   "tuiSidebarPanel": {
     "enabled": true
+  },
+  "maintainerAnnouncements": {
+    "enabled": false,
+    "home": false
   }
 }
