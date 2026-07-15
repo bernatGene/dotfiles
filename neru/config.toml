@@ -48,7 +48,7 @@ font_size = 14
 "Shift+K" = ["action move_mouse --selection", "scroll", "action scroll_up"]
 "Space" = ["action left_click", "action reset"]
 "Enter" = "action left_click"
-"Tab" = "action reset"
+"Tab" = ["action move_mouse --selection", "scroll"]
 "Ctrl+H" = "action move_mouse_relative --dx=-10 --dy=0"
 "Ctrl+J" = "action move_mouse_relative --dx=0 --dy=10"
 "Ctrl+K" = "action move_mouse_relative --dx=0 --dy=-10"
@@ -68,6 +68,7 @@ scroll_step = 100
 scroll_step_half = 700
 
 [scroll.hotkeys]
+"Tab" = "recursive_grid --cursor-selection-mode hold"
 "." = "recursive_grid --cursor-selection-mode hold"
 "r" = "recursive_grid --cursor-selection-mode hold"
 "m" = "action mouse_down"
