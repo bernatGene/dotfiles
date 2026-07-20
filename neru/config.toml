@@ -36,11 +36,25 @@ grid_cols = 5
 grid_rows = 5
 keys = "qwertyuiopasdfghjkl;cvbnm"
 
+# [recursive_grid.ui]
+# line_color = "#FF000000"
+# text_color = "#00111827"
+# highlight_color = "#11FFFFFF"
+# font_size = 14
+
 [recursive_grid.ui]
+font_family = "JetBrainsMonoNLNFP-Bold"
+line_width = 1
 line_color = "#FF000000"
-text_color = "#00111827"
-highlight_color = "#11FFFFFF"
+text_color = "#FFFD3300"
+highlight_color = "#00000000"
+label_char = ""
 font_size = 14
+sub_key_preview = true
+sub_key_preview_label_char = ""
+sub_key_preview_font_size = 4
+sub_key_preview_text_color = "#FD3322"
+sub_key_preview_autohide_multiplier = 0.5
 
 [recursive_grid.hotkeys]
 "Shift+S" = ["action move_mouse --selection", "scroll"]
