@@ -5,10 +5,10 @@
 [hotkeys]
 "Primary+Shift+C" = "__disabled__"
 "Primary+Shift+S" = "__disabled__"
-"Cmd+Shift+K" = ["action move_mouse --window", "recursive_grid --cursor-selection-mode hold"]
+"Cmd+Shift+K" = ["action move_mouse --window", "scroll"]
 "Cmd+Escape" = ["action move_mouse --window", "recursive_grid --cursor-selection-mode hold"]
 "Cmd+J" = ["action move_mouse --window", "scroll"]
-"Cmd+Shift+J" = ["action move_mouse --window", "scroll"]
+"Cmd+Shift+J" = "scroll"
 
 [hints]
 hint_characters = "asdfghjklertyuiocvbnm"
@@ -84,7 +84,6 @@ scroll_step_half = 700
 [scroll.hotkeys]
 "Tab" = "recursive_grid --cursor-selection-mode hold"
 "." = "recursive_grid --cursor-selection-mode hold"
-"r" = "recursive_grid --cursor-selection-mode hold"
 "m" = "action mouse_down"
 "Shift+M" = "action mouse_up"
 "Ctrl+U" = "action page_up"
