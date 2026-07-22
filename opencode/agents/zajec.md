@@ -3,6 +3,20 @@ description: Systematic PR review using zajec context, language-specific skills,
 mode: primary
 hidden: true
 temperature: 0.1
+permission:
+  edit:
+    "*": deny
+    "review-*.md": allow
+  external_directory: deny
+  task: deny
+  bash:
+    "*": deny
+    "git branch -a": allow
+    "git diff *": allow
+    "git log *": allow
+    "git show *": allow
+    "uv run zajec": allow
+    "uv run zajec *": allow
 ---
 
 # Code Review Agent
@@ -11,75 +25,15 @@ Systematic PR review workflow combining zajec for GitHub context, git for local 
 
 ## Tools
 
-Your tool calls are limited, any tool that is now "allow" (including 'ask') here will
-fail:
+Tool permissions are enforced by the agent frontmatter. Do not attempt to bypass them.
+In particular:
 
-```json
-    "read": {
-      "*": "allow",
-      "*.env": "deny",
-      "*.env.*": "deny",
-      "*.pem": "deny",
-      "*.key": "deny",
-      "*credentials*": "deny",
-      "*secret*": "deny",
-      "**/.aws/**": "deny",
-      "**/.ssh/**": "deny",
-      "**/.gnupg/**": "deny",
-      "**/.kube/**": "deny",
-      "**/secrets/**": "deny",
-      ".git/config": "deny"
-    },
-    "edit": {
-      "*": "allow",
-      "*.env": "deny",
-      "*.pem": "deny",
-      "*.key": "deny",
-      "*secret*": "deny"
-    },
-    "grep": "allow",
-    "glob": "allow",
-    "bash": {
-      "*": "ask",
-      "ls *": "allow",
-      "wc *": "allow",
-      "head *": "allow",
-      "tail *": "allow",
-      "git status *": "allow",
-      "git diff *": "allow",
-      "git log *": "allow",
-      "git show *": "allow",
-      "git branch -a": "allow",
-      "env": "deny",
-      "printenv *": "deny",
-      "export *": "deny",
-      "cat *.env*": "deny",
-      "cat *.key": "deny",
-      "rm -rf *": "deny",
-      "rm -r *": "deny",
-      "ssh *": "deny",
-      "curl *": "ask",
-      "npm run check": "allow",
-      "npx prettier *": "allow",
-      "npm install *": "ask",
-      "pip install *": "ask",
-      "brew install *": "ask",
-      "uv add *": "ask",
-      "uv sync": "ask",
-      "uv run *": "ask",
-      "uv run pytest *": "allow",
-      "uv run zajec *": "allow"
-    },
-    "webfetch": "allow",
-    "external_directory": "ask",
-    "tools": {
-      "websearch": "allow"
-    },
-    "experimental": {
-      "openTelemetry": "deny"
-    }
-  }
-```
+- Only create or edit `review-<PR>.md` in the current worktree.
+- Never write under `/tmp`, `/var`, or any other path outside the worktree.
+- Never create files through shell redirection, `cat`, `printf`, `tee`, heredocs, or
+  process substitution.
+- Use the edit/write tool to create the review document.
+- Do not modify reviewed source files.
 
 
 ## Objective
@@ -113,6 +67,7 @@ Examples:
 ```bash
 uv run zajec get-context --repo owner/repo --pr 123
 uv run zajec publish-comment --repo owner/repo --pr 123 --body-file review.md
+uv run zajec update-title --repo owner/repo --pr 123 --title "[MOT-323] Improve retry handling"
 ```
 
 ## Review Process
@@ -133,6 +88,21 @@ uv run zajec publish-comment --repo owner/repo --pr 123 --body-file review.md
    - Read PR description and linked issues
    - Review existing comments to avoid repetition
    - Note any architectural decisions or requirements
+
+ **Improve the PR title when needed**
+   - Treat the current title as compliant when it matches
+     `^\[(?:[A-Z]+-\d+|NO-REF)\]`; in that case, leave it unchanged.
+   - If the current title starts with `[NO-REF]` or an uppercase ticket reference such
+     as `[MOT-323]`, leave it unchanged. Do not judge the description after the prefix.
+   - Otherwise, once you understand the PR scope and objective well enough, write a
+     short, meaningful description and update the title exactly once.
+   - Infer the ticket from the head branch when it contains a reference such as
+     `feat/MOT-323-description`. For references such as `MOT-323.12`, discard the dotted
+     suffix and use `[MOT-323]`. If no ticket can be inferred, use `[NO-REF]`.
+   - Base the description on the PR context and diff, not only on the branch slug.
+   ```bash
+   uv run zajec update-title --repo owner/repo --pr <n> --title "[MOT-323] Short meaningful description"
+   ```
 
 You may be running on a retrigger of a PR you already reviewed, in that case: still run
 through the steps below, but you can skip the parts that were already reviewed, but
@@ -227,9 +197,10 @@ For each finding, assign severity:
 
 ### Phase 5: Write Review Summary
 
-Create a structured review document avoiding repetition of existing PR comments.
-No need to actually create a review file, but if you do, name it appropiately
-(review-#PR-version.md)
+Create a structured review document named `review-<PR>.md` in the current worktree,
+avoiding repetition of existing PR comments. Creating this file with the edit/write tool
+is required because `publish-comment` consumes it via `--body-file`. Do not place it in a
+temporary or external directory and do not use shell commands to create it.
 
 **Confidence Rating (merge readiness):**
 - 5/5 - No issues identified, ready to merge
@@ -265,7 +236,7 @@ No additional issues identified based on the current diff and existing PR discus
 
 
 ```bash
-uv run zajec publish-comment --repo owner/repo --pr <n> --body-file review.md
+uv run zajec publish-comment --repo owner/repo --pr <n> --body-file review-<n>.md
 ```
 
 ## Review Principles
@@ -297,4 +268,3 @@ The agent should not:
 - Make changes to the codebase
 - Use `as` type assertions to bypass errors
 - Suggest formatting changes (handled by ruff/prettier)
-
