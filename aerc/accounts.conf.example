@@ -1,0 +1,16 @@
+[ACCOUNT_LABEL]
+from = YOUR_NAME <YOUR_ADDRESS@gmail.com>
+
+source = imaps://YOUR_ADDRESS%40gmail.com@imap.gmail.com
+source-cred-cmd = security find-generic-password -a 'YOUR_ADDRESS@gmail.com' -s 'aerc-gmail-test' -w
+
+outgoing = smtps://YOUR_ADDRESS%40gmail.com@smtp.gmail.com
+outgoing-cred-cmd = security find-generic-password -a 'YOUR_ADDRESS@gmail.com' -s 'aerc-gmail-test' -w
+
+default = INBOX
+folders-sort = INBOX,[Gmail]/Starred,[Gmail]/Drafts,[Gmail]/Sent Mail,[Gmail]/All Mail,[Gmail]/Trash
+postpone = [Gmail]/Drafts
+archive = [Gmail]/All Mail
+cache-headers = true
+check-mail = 5m
+restrict-delete = true

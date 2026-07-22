@@ -1,5 +1,8 @@
 .DS_store
 
+# aerc local account details and credentials
+aerc/accounts.conf
+
 # OpenCode local dependencies
 opencode/node_modules/
 
