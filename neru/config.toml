@@ -54,7 +54,7 @@ sub_key_preview = true
 sub_key_preview_label_char = ""
 sub_key_preview_font_size = 4
 sub_key_preview_text_color = "#FD3322"
-sub_key_preview_autohide_multiplier = 0.5
+sub_key_preview_autohide_multiplier = 1.5
 
 [recursive_grid.hotkeys]
 "Shift+S" = ["action move_mouse --selection", "scroll"]
