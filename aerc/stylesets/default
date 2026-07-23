@@ -1,0 +1,3 @@
+# aerc styleset: make unread messages stand out more than just bold
+msglist_unread.fg = #ffaa00
+msglist_unread.bold = true
