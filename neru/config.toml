@@ -18,6 +18,8 @@ include_menubar_hints = true
 "." = ["idle", "action wait_for_mode_exit", "hints"]
 "Space" = "action left_click"
 "Shift+J" = ["idle", "action wait_for_mode_exit", "scroll"]
+"Ctrl+O" = "action feed cmd+["
+"Ctrl+I" = "action feed cmd+]"
 
 [hints.additional_ax_support]
 enable = true
@@ -30,6 +32,8 @@ font_family = "monaco"
 [grid.hotkeys]
 "Space" = "action left_click"
 "Enter" = "action reset"
+"Ctrl+O" = "action feed cmd+["
+"Ctrl+I" = "action feed cmd+]"
 
 [recursive_grid]
 grid_cols = 5
@@ -63,6 +67,8 @@ sub_key_preview_autohide_multiplier = 1.5
 "Space" = ["action left_click", "action reset"]
 "Enter" = "action left_click"
 "Tab" = ["action move_mouse --selection", "scroll"]
+"Ctrl+O" = "action feed cmd+["
+"Ctrl+I" = "action feed cmd+]"
 "Ctrl+H" = "action move_mouse_relative --dx=-10 --dy=0"
 "Ctrl+J" = "action move_mouse_relative --dx=0 --dy=10"
 "Ctrl+K" = "action move_mouse_relative --dx=0 --dy=-10"
@@ -88,6 +94,8 @@ scroll_step_half = 700
 "Shift+M" = "action mouse_up"
 "Ctrl+U" = "action page_up"
 "Ctrl+D" = "action page_down"
+"Ctrl+O" = "action feed cmd+["
+"Ctrl+I" = "action feed cmd+]"
 "c" = "action move_mouse --center"
 "Shift+C" = ["action move_monitor", "action move_mouse --center"]
 "Space" = "action left_click"
