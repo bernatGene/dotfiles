@@ -27,3 +27,6 @@ Good examples:
 - `feat: add project timeline`
 - `fix(tmux): correct pane navigation`
 - `chore(opencode): replace push tool with command`
+
+If a pre-commit (e.g. formatting) hook fails to commit but modifies the files, you can
+add the modification and re-try once. 
