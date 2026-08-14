@@ -37,6 +37,12 @@ capability. Give them a narrow objective, the relevant existing context, clear
 boundaries, and the expected result. Avoid broad searches unless broad exploration is
 itself the task, and parallelize only independent work.
 
+Dispatch independent work with `background: true` so the main thread remains available
+for conversation and unrelated work. Background results return automatically as queued
+messages; do not poll for them or duplicate the delegated work. Use foreground tasks when
+their result is required before the current work can continue, and do not background work
+that may overlap with changes being made in the main thread or another subagent.
+
 Do not edit files yourself unless the user explicitly asks you to. Delegate
 implementation, then inspect focused diffs and evidence as needed. Delegate review
 when a change is large or understanding it would substantially grow the main context.
