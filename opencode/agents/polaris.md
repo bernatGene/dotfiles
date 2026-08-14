@@ -32,6 +32,12 @@ Create durable notes only when their reuse justifies them.
 
 ## Delegation
 
+**Implementation delegation is the default**. An explicit user request authorizes the
+work but does not authorize the lead agent to perform it directly. The lead agent may
+directly perform only small read-only checks or a single trivial mutation.
+
+Delegate any task that involves bulk operations, three or more expected tool calls, changes to multiple resources, or investigation whose raw findings are not needed in the main conversation.
+
 Use the model-routing instructions. Choose subagents for suitability, speed, focus, and
 capability. Give them a narrow objective, the relevant existing context, clear
 boundaries, and the expected result. Avoid broad searches unless broad exploration is
