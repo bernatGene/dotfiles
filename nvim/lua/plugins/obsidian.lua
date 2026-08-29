@@ -2,6 +2,7 @@
 local wk = require("which-key")
 local vault_path = "/Users/bernat/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault"
 local daily_notes_folder = "dailynote"
+local calendar_folder = "calendar"
 local daily_notes_date_format = "%Y-%m-%d-%a"
 wk.add({
   { "<leader>o", group = "obsidian", desc = "obsidian", icon = { icon = "󰇈", color = "purple" } },
@@ -203,7 +204,8 @@ local function add_daily_mention(bufnr)
   end
 
   local daily_notes_dir = vim.fs.normalize(vault_path .. "/" .. daily_notes_folder)
-  if path_in_dir(path, daily_notes_dir) then
+  local calendar_dir = vim.fs.normalize(vault_path .. "/" .. calendar_folder)
+  if path_in_dir(path, daily_notes_dir) or path_in_dir(path, calendar_dir) then
     return false
   end
 
@@ -419,6 +421,7 @@ return {
       vault_path = vault_path,
       daily_notes_folder = daily_notes_folder,
       daily_notes_date_format = daily_notes_date_format,
+      calendar_folder = calendar_folder,
       on_attach = attach_calendar_mappings,
     })
     setup_daily_mentions()

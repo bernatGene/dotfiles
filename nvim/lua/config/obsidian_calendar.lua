@@ -59,7 +59,7 @@ function M.setup(opts)
   local vault_path = opts.vault_path
   local daily_notes_folder = opts.daily_notes_folder
   local daily_notes_date_format = opts.daily_notes_date_format
-  local calendar_dir = vault_path .. "/calendar"
+  local calendar_dir = vault_path .. "/" .. opts.calendar_folder
 
   local function calendar_path(year)
     return string.format("%s/%04d.md", calendar_dir, year)
@@ -85,14 +85,17 @@ function M.setup(opts)
       local daily_lines = exists and vim.fn.readfile(daily_path) or {}
       local link = string.format("[[%s]]", filename)
       local visualization = #daily_lines == 0 and "0" or string.rep("#", math.ceil(#daily_lines / 5)) .. #daily_lines
-      table.insert(lines, string.format(
-        "%s- [%s] | %s | %02d | %s",
-        date.wday == 2 and "* " or "  ",
-        exists and "x" or " ",
-        link,
-        count_wiki_links(daily_lines),
-        visualization
-      ))
+      table.insert(
+        lines,
+        string.format(
+          "%s- [%s] | %s | %02d | %s",
+          date.wday == 2 and "* " or "  ",
+          exists and "x" or " ",
+          link,
+          count_wiki_links(daily_lines),
+          visualization
+        )
+      )
       timestamp = shift_date(timestamp, 1)
     end
     return lines
