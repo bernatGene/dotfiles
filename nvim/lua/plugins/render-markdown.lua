@@ -7,6 +7,10 @@ return {
     enabled = true,
     render_modes = false,
     file_types = { "markdown" },
+    ignore = function(bufnr)
+      local path = vim.fs.normalize(vim.api.nvim_buf_get_name(bufnr))
+      return path:match("/calendar/%d%d%d%d%.md$") ~= nil
+    end,
 
     -- disable almost everything
     heading = { enabled = false },
