@@ -40,6 +40,7 @@ local function goto_daily(delta)
   local t = os.time({ year = y, month = m, day = d })
   local today = os.date("*t")
   local base = os.time({ year = today.year, month = today.month, day = today.day })
+  -- TODO: Use civil-date arithmetic here; 86400-second offsets are DST-sensitive.
   local offset = math.floor((t - base) / 86400)
   vim.cmd("Obsidian today " .. (offset + delta))
 end
@@ -140,7 +141,7 @@ local function daily_link(ctx, offset, label)
   end
   local t = os.time({ year = y, month = m, day = d })
   local date = os.date(daily_notes_date_format, t + offset * 86400)
-  return string.format("[[dailynote/%s|%s]]", date, label)
+  return string.format("[[%s/%s|%s]]", daily_notes_folder, date, label)
 end
 
 local function today_daily_note_path()
@@ -247,6 +248,13 @@ return {
   keys = {
     -- daily notes
     { "<leader>od", "<cmd>Obsidian today<cr>", desc = "Open daily note" },
+    {
+      "<leader>oC",
+      function()
+        require("config.obsidian_calendar").open_current()
+      end,
+      desc = "Open current calendar",
+    },
     { "<leader>oy", "<cmd>Obsidian yesterday<cr>", desc = "Open yesterday's note" },
     { "<leader>ot", "<cmd>Obsidian tomorrow<cr>", desc = "Open tomorrow's note" },
     {
@@ -378,5 +386,10 @@ return {
   config = function(_, opts)
     require("obsidian").setup(opts)
     setup_daily_mentions()
+    require("config.obsidian_calendar").setup({
+      vault_path = vault_path,
+      daily_notes_folder = daily_notes_folder,
+      daily_notes_date_format = daily_notes_date_format,
+    })
   end,
 }
