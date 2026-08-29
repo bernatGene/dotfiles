@@ -193,18 +193,18 @@ end
 local function add_daily_mention(bufnr)
   local path = vim.api.nvim_buf_get_name(bufnr)
   if path == "" or vim.fn.fnamemodify(path, ":e") ~= "md" then
-    return
+    return false
   end
 
   path = vim.fs.normalize(path)
   local vault_norm = vim.fs.normalize(vault_path)
   if not path_in_dir(path, vault_norm) then
-    return
+    return false
   end
 
   local daily_notes_dir = vim.fs.normalize(vault_path .. "/" .. daily_notes_folder)
   if path_in_dir(path, daily_notes_dir) then
-    return
+    return false
   end
 
   local link = mention_link_for_path(path)
@@ -218,11 +218,12 @@ local function add_daily_mention(bufnr)
   end
 
   if daily_note_has_link(lines, link) then
-    return
+    return false
   end
 
   insert_daily_mention(lines, "- " .. link)
   vim.fn.writefile(lines, daily_path)
+  return true
 end
 
 local function setup_daily_mentions()
@@ -230,9 +231,38 @@ local function setup_daily_mentions()
     group = vim.api.nvim_create_augroup("ObsidianDailyMentions", { clear = true }),
     pattern = "*.md",
     callback = function(args)
-      add_daily_mention(args.buf)
+      if add_daily_mention(args.buf) then
+        require("config.obsidian_calendar").refresh_year(os.date("*t").year)
+      end
     end,
   })
+end
+
+local function attach_calendar_mappings(bufnr)
+  local calendar = require("config.obsidian_calendar")
+  local function map(lhs, rhs, desc)
+    vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
+  end
+
+  map("<leader>oj", function()
+    calendar.move_week(bufnr, 1)
+  end, "Next calendar week")
+  map("<leader>ok", function()
+    calendar.move_week(bufnr, -1)
+  end, "Previous calendar week")
+  map("<leader>oJ", function()
+    calendar.open_adjacent_year(bufnr, 1)
+  end, "Next calendar year")
+  map("<leader>oK", function()
+    calendar.open_adjacent_year(bufnr, -1)
+  end, "Previous calendar year")
+  map("<leader>oD", calendar.open_today, "Jump to today")
+  map("]m", function()
+    calendar.move_month(bufnr, 1)
+  end, "Next calendar month")
+  map("[m", function()
+    calendar.move_month(bufnr, -1)
+  end, "Previous calendar month")
 end
 
 return {
@@ -385,11 +415,12 @@ return {
   },
   config = function(_, opts)
     require("obsidian").setup(opts)
-    setup_daily_mentions()
     require("config.obsidian_calendar").setup({
       vault_path = vault_path,
       daily_notes_folder = daily_notes_folder,
       daily_notes_date_format = daily_notes_date_format,
+      on_attach = attach_calendar_mappings,
     })
+    setup_daily_mentions()
   end,
 }
