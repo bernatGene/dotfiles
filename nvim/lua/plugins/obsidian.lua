@@ -145,10 +145,6 @@ local function daily_link(ctx, offset, label)
   return string.format("[[%s/%s|%s]]", daily_notes_folder, date, label)
 end
 
-local function today_daily_note_path()
-  return table.concat({ vault_path, daily_notes_folder, os.date(daily_notes_date_format) .. ".md" }, "/")
-end
-
 local function mention_link_for_path(path)
   return "[[" .. vim.fn.fnamemodify(path, ":t:r") .. "]]"
 end
@@ -210,22 +206,25 @@ local function add_daily_mention(bufnr)
   end
 
   local link = mention_link_for_path(path)
-  local daily_path = vim.fs.normalize(today_daily_note_path())
-  local daily_dir = vim.fn.fnamemodify(daily_path, ":h")
-  vim.fn.mkdir(daily_dir, "p")
-
-  local lines = {}
-  if vim.fn.filereadable(daily_path) == 1 then
-    lines = vim.fn.readfile(daily_path)
+  local timestamp = os.time()
+  local daily = require("obsidian.daily")
+  local daily_path = vim.fs.normalize(tostring(daily.daily_note_path(timestamp)))
+  if vim.fn.filereadable(daily_path) ~= 1 then
+    daily_path = vim.fs.normalize(tostring(daily.daily({ date = timestamp }).path))
   end
+
+  local lines = vim.fn.readfile(daily_path)
 
   if daily_note_has_link(lines, link) then
     return false
   end
 
   insert_daily_mention(lines, "- " .. link)
-  vim.fn.writefile(lines, daily_path)
-  return true
+  if vim.fn.writefile(lines, daily_path) ~= 0 then
+    vim.notify("Failed to add mention to " .. daily_path, vim.log.levels.ERROR)
+    return false
+  end
+  return true, os.date("*t", timestamp).year
 end
 
 local function setup_daily_mentions()
@@ -233,8 +232,9 @@ local function setup_daily_mentions()
     group = vim.api.nvim_create_augroup("ObsidianDailyMentions", { clear = true }),
     pattern = "*.md",
     callback = function(args)
-      if add_daily_mention(args.buf) then
-        require("config.obsidian_calendar").refresh_year(os.date("*t").year)
+      local added, year = add_daily_mention(args.buf)
+      if added then
+        require("config.obsidian_calendar").refresh_year(year)
       end
     end,
   })
