@@ -4,6 +4,7 @@
 vim.opt.clipboard = ""
 vim.opt.expandtab = true
 vim.opt.conceallevel = 0
+vim.opt.spelllang = { "en", "ca" }
 vim.o.winborder = "rounded"
 -- -- js/ts specific
 vim.api.nvim_create_autocmd("FileType", {

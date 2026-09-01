@@ -76,6 +76,7 @@ function M.setup(opts)
   local function render_calendar(year)
     local lines = { string.format("# %d Calendar", year), "" }
     local timestamp = noon(year, 1, 1)
+    local current_date = today()
     local days = date_offset(timestamp, noon(year + 1, 1, 1))
     for _ = 1, days do
       local date = os.date("*t", timestamp)
@@ -88,8 +89,9 @@ function M.setup(opts)
       table.insert(
         lines,
         string.format(
-          "%s- [%s] | %s | %02d | %s",
+          "%s%s {%s} | %s | %02d | %s",
           date.wday == 2 and "* " or "  ",
+          timestamp == current_date and ">" or "-",
           exists and "x" or " ",
           link,
           count_wiki_links(daily_lines),
@@ -169,15 +171,19 @@ function M.setup(opts)
     reconcile(bufnr)
     vim.bo[bufnr].readonly = true
     vim.bo[bufnr].modifiable = false
-    local current_date = today()
-    if calendar_year(vim.api.nvim_buf_get_name(bufnr)) == os.date("*t", current_date).year then
-      jump_to_date(bufnr, current_date)
-    end
     vim.schedule(function()
       if vim.api.nvim_buf_is_valid(bufnr) then
         opts.on_attach(bufnr)
       end
     end)
+  end
+
+  local function enter_buffer(bufnr)
+    prepare_buffer(bufnr)
+    local current_date = today()
+    if calendar_year(vim.api.nvim_buf_get_name(bufnr)) == os.date("*t", current_date).year then
+      jump_to_date(bufnr, current_date)
+    end
   end
 
   local function refresh_year(year)
@@ -190,12 +196,30 @@ function M.setup(opts)
   end
 
   local group = vim.api.nvim_create_augroup("ObsidianCalendars", { clear = true })
-  vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufEnter" }, {
+  vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
     group = group,
     pattern = "*.md",
     callback = function(args)
       if calendar_year(vim.api.nvim_buf_get_name(args.buf)) then
         prepare_buffer(args.buf)
+      end
+    end,
+  })
+  vim.api.nvim_create_autocmd("BufEnter", {
+    group = group,
+    pattern = "*.md",
+    callback = function(args)
+      if calendar_year(vim.api.nvim_buf_get_name(args.buf)) then
+        enter_buffer(args.buf)
+      end
+    end,
+  })
+  vim.api.nvim_create_autocmd("User", {
+    group = group,
+    pattern = "ObsidianNoteEnter",
+    callback = function(args)
+      if calendar_year(vim.api.nvim_buf_get_name(args.buf)) then
+        opts.on_attach(args.buf)
       end
     end,
   })
@@ -231,11 +255,29 @@ function M.setup(opts)
   end, { nargs = "?", desc = "Rebuild an Obsidian calendar year" })
 
   if calendar_year(vim.api.nvim_buf_get_name(0)) then
-    prepare_buffer(0)
+    enter_buffer(0)
   end
 
   M.open_current = function()
-    open_calendar(os.date("*t", today()).year)
+    local current_date = today()
+    open_calendar(os.date("*t", current_date).year, current_date)
+  end
+  M.open_daily_at_cursor = function(bufnr)
+    local timestamp = date_at_cursor(bufnr)
+    if not timestamp then
+      return false
+    end
+
+    local link = string.format("[[%s]]", os.date(daily_notes_date_format, timestamp))
+    local line = vim.api.nvim_get_current_line()
+    local link_start, link_end = line:find(link, 1, true)
+    local cursor_col = vim.api.nvim_win_get_cursor(0)[2] + 1
+    if not link_start or cursor_col < link_start or cursor_col > link_end then
+      return false
+    end
+
+    require("obsidian.daily").daily({ date = timestamp }):open()
+    return true
   end
   M.move_week = function(bufnr, weeks)
     local timestamp = date_at_cursor(bufnr)

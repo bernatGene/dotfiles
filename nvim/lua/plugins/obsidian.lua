@@ -246,6 +246,13 @@ local function attach_calendar_mappings(bufnr)
     vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
   end
 
+  vim.keymap.set("n", "<CR>", function()
+    if calendar.open_daily_at_cursor(bufnr) then
+      return ""
+    end
+    return require("obsidian.api").smart_action()
+  end, { buffer = bufnr, desc = "Open calendar daily note", expr = true })
+
   map("<leader>oj", function()
     calendar.move_week(bufnr, 1)
   end, "Next calendar week")

@@ -37,7 +37,7 @@ vim.keymap.set("n", "<leader>z", function()
   }
   local current = ""
   if vim.o.spell then
-    current = vim.opt.spelllang:get()[1] or ""
+    current = table.concat(vim.opt.spelllang:get(), ",")
   end
   vim.ui.select(langs, {
     prompt = "Select spell language (current: " .. (display_names[current] or "Disabled") .. ")",
@@ -51,7 +51,7 @@ vim.keymap.set("n", "<leader>z", function()
         vim.notify("Spell check disabled", vim.log.levels.INFO)
       else
         vim.opt.spell = true
-        vim.opt.spelllang = { choice }
+        vim.opt.spelllang = vim.split(choice, ",", { plain = true })
         vim.notify("Spell language set to " .. display_names[choice], vim.log.levels.INFO)
       end
     end
