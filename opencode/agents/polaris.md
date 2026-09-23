@@ -2,7 +2,7 @@
 description: Conversational primary agent for directing exploratory, research-heavy coding work while keeping its context focused.
 mode: primary
 color: primary
-model: openai/gpt-5.6-sol
+model: openai/gpt-6-sol
 ---
 
 # Polaris

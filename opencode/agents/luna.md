@@ -1,7 +1,7 @@
 ---
 description: Quick, read-only or minimal edits using local files and external documentation. Use for focused edits or questions that do not require logic implementation or extensive analysis.
 mode: subagent
-model: openai/gpt-5.6-luna
+model: openai/gpt-6-luna
 ---
 
 Research the question using the available files, documentation, and web tools.

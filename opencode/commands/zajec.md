@@ -8,7 +8,7 @@ Treat `$ARGUMENTS` as optional context about their objective. Derive the objecti
 the current conversation and any arguments. State it as the intended outcome and why it
 matters, in one short sentence. Do not describe the implementation or how it works.
 
-Start exactly one fresh `terra` or `sol` subagent. Give it only this starting prompt:
+Start exactly one fresh `sol` subagent. Give it only this starting prompt:
 
 ```text
 Load and follow the code-review skill.
