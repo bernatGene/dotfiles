@@ -56,10 +56,12 @@ local function calendar_line_for_date(year, timestamp)
 end
 
 function M.setup(opts)
+  local events = require("plugins.obsidian.obsidian_calendar_events")
   local vault_path = opts.vault_path
   local daily_notes_folder = opts.daily_notes_folder
   local daily_notes_date_format = opts.daily_notes_date_format
   local calendar_dir = vault_path .. "/" .. opts.calendar_folder
+  local event_counts_enabled = opts.calendar_events_enabled and vim.fn.has("mac") == 1
 
   local function calendar_path(year)
     return string.format("%s/%04d.md", calendar_dir, year)
@@ -71,6 +73,20 @@ function M.setup(opts)
       return nil
     end
     return tonumber(vim.fn.fnamemodify(path, ":t"):match("^(%d%d%d%d)%.md$"))
+  end
+
+  local function daily_date(path)
+    path = vim.fs.normalize(path)
+    if vim.fn.fnamemodify(path, ":h") ~= vim.fs.normalize(vault_path .. "/" .. daily_notes_folder) then
+      return nil
+    end
+    local filename = vim.fn.fnamemodify(path, ":t:r")
+    local parsed = vim.fn.strptime(daily_notes_date_format, filename)
+    if os.date(daily_notes_date_format, parsed) ~= filename then
+      return nil
+    end
+    local date = os.date("*t", parsed)
+    return date.year, noon(date.year, date.month, date.day)
   end
 
   local function render_calendar(year)
@@ -86,15 +102,22 @@ function M.setup(opts)
       local daily_lines = exists and vim.fn.readfile(daily_path) or {}
       local link = string.format("[[%s]]", filename)
       local visualization = #daily_lines == 0 and "0" or string.rep("#", math.ceil(#daily_lines / 5)) .. #daily_lines
+      local counts
+      if event_counts_enabled then
+        local count = events.count(year, timestamp)
+        counts = string.format("Events: %s | Links: %02d", count and string.format("%02d", math.min(count, 99)) or "--", count_wiki_links(daily_lines))
+      else
+        counts = string.format("%02d", count_wiki_links(daily_lines))
+      end
       table.insert(
         lines,
         string.format(
-          "%s%s {%s} | %s | %02d | %s",
+          "%s%s {%s} | %s | %s | %s",
           date.wday == 2 and "* " or "  ",
           timestamp == current_date and ">" or "-",
           exists and "x" or " ",
           link,
-          count_wiki_links(daily_lines),
+          counts,
           visualization
         )
       )
@@ -303,6 +326,13 @@ function M.setup(opts)
     end
   end
   M.refresh_year = refresh_year
+  M.refresh_existing_year = function(year)
+    if vim.fn.filereadable(calendar_path(year)) == 1 then
+      refresh_year(year)
+    end
+  end
+  M.calendar_year = calendar_year
+  M.daily_date = daily_date
 end
 
 return M
