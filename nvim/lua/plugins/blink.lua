@@ -53,16 +53,11 @@ return {
       default = { "lsp", "path", "snippets", "buffer" },
       per_filetype = {
         markdown = {
-          "opencode_refs",
           "lsp",
           "snippets",
         },
       },
       providers = {
-        opencode_refs = {
-          name = "opencode @",
-          module = "custom.opencode_refs",
-        },
         snippets = { min_keyword_length = 4 },
       },
     },

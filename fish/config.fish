@@ -52,13 +52,12 @@ end
 alias nn=newnote
 alias nnl=newnote_last
 
-function opencode --description 'Run opencode with Neovim editor context'
-    set -l editor "$HOME/p/dotfiles/bin/opencode-nvim-editor"
+function opencode --description 'Run opencode with Neovim and tmux notifications'
     set -l opentui_env
 
     if set -q TMUX
         set opentui_env OPENTUI_NOTIFICATION_PROTOCOL=osc99
     end
 
-    env VISUAL="$editor" EDITOR="$editor" OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=true $opentui_env command opencode $argv
+    env VISUAL=nvim EDITOR=nvim OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=true $opentui_env command opencode $argv
 end
