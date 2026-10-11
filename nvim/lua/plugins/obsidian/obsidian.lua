@@ -95,8 +95,8 @@ local function new_root_note()
         id = input,
         dir = vault_path,
         template = Obsidian.opts.note.template,
-        should_write = true,
       })
+      note:write({ template = Obsidian.opts.note.template })
       note:open({ sync = true })
     end
   end)
@@ -214,7 +214,11 @@ local function add_daily_mention(bufnr)
   local daily = require("obsidian.daily")
   local daily_path = vim.fs.normalize(tostring(daily.daily_note_path(timestamp)))
   if vim.fn.filereadable(daily_path) ~= 1 then
-    daily_path = vim.fs.normalize(tostring(daily.daily({ date = timestamp }).path))
+    local note = daily.daily({ date = timestamp })
+    if not note:exists() then
+      note:write({ template = Obsidian.opts.daily_notes.template })
+    end
+    daily_path = vim.fs.normalize(tostring(note.path))
   end
 
   local lines = vim.fn.readfile(daily_path)
@@ -372,11 +376,10 @@ return {
       workdays_only = false,
     },
     completion = {
-      nvim_cmp = false,
-      blink = true,
       min_chars = 4,
     },
     new_notes_location = "current_dir",
+    note = { template = "note.md" },
     open_notes_in = "current",
     note_id_func = function(title, dir)
       local daily_notes_dir = Obsidian.dir / Obsidian.opts.daily_notes.folder

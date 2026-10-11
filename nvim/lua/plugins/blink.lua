@@ -54,7 +54,7 @@ return {
       per_filetype = {
         markdown = {
           "opencode_refs",
-          "obsidian",
+          "lsp",
           "snippets",
         },
       },
