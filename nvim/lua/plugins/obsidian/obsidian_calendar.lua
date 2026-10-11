@@ -299,7 +299,11 @@ function M.setup(opts)
       return false
     end
 
-    require("obsidian.daily").daily({ date = timestamp }):open()
+    local note = require("obsidian.daily").daily({ date = timestamp })
+    if not note:exists() then
+      note:write({ template = Obsidian.opts.daily_notes.template })
+    end
+    note:open()
     return true
   end
   M.move_week = function(bufnr, weeks)
