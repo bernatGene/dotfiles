@@ -108,21 +108,19 @@ local function draw_daily(bufnr, year, timestamp)
   end
 
   local events = result.by_day[date_key(timestamp)] or {}
-  local lines = { { { "", "Normal" } }, { { "Calendar:", "Normal" } } }
+  local lines = { { { "", "Comment" } } }
   if #events == 0 then
-    table.insert(lines, { { "  - No events", "Normal" } })
+    table.insert(lines, { { "- No events", "Comment" } })
   else
     for _, event in ipairs(events) do
       local time = time_for_day(event, timestamp)
       local source = table.concat(event.calendars, ", ")
       local spacing = string.rep(" ", math.max(1, 22 - vim.fn.strdisplaywidth(time)))
-      table.insert(lines, { { "  - " .. time .. spacing .. event.title .. " · " .. source, "Normal" } })
+      table.insert(lines, { { "- " .. time .. spacing .. event.title .. " · " .. source, "Comment" } })
     end
   end
   vim.api.nvim_buf_set_extmark(bufnr, namespace, vim.api.nvim_buf_line_count(bufnr) - 1, 0, {
     virt_lines = lines,
-    virt_lines_above = false,
-    virt_lines_leftcol = true,
   })
 end
 

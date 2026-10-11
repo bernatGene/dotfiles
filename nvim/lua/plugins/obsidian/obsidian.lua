@@ -1,6 +1,9 @@
 -- Obsidian plugin spec; imported through plugins/obsidian.lua.
 local wk = require("which-key")
 local vault_path = "/Users/bernat/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault"
+-- Vault-relative folders whose named notes use the title without a timestamp.
+-- Includes their subfolders; keep titles unique across the vault for bare wikilinks.
+local title_only_folders = { "Jana_Bernat" }
 local daily_notes_folder = "dailynote"
 local calendar_folder = "calendar"
 local daily_notes_date_format = "%Y-%m-%d-%a"
@@ -379,6 +382,13 @@ return {
       local daily_notes_dir = Obsidian.dir / Obsidian.opts.daily_notes.folder
       if daily_notes_dir == dir then
         return title
+      end
+      if title and title ~= "" then
+        for _, folder in ipairs(title_only_folders) do
+          if path_in_dir(tostring(dir), vault_path .. "/" .. folder) then
+            return title
+          end
+        end
       end
       local suffix = ""
       if title ~= nil then

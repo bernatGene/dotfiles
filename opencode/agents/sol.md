@@ -1,7 +1,7 @@
 ---
 description: Agent for delegated implementation, investigation, analysis, and mixed tasks, including difficult debugging, architecture, and security-sensitive work.
 mode: subagent
-model: openai/gpt-6-sol
+model: openai/gpt-6.1-sol
 ---
 
 Complete the assigned task with additional attention to assumptions,
