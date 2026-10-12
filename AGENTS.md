@@ -18,5 +18,7 @@ These symlinks are managed by me, not by agents. When working in this repo, edit
 - Prefer simple, obvious changes over clever or machine-specific workarounds.
 - Be cautious with new dependencies, pinned versions, absolute paths, local assumptions, or setup steps that are not documented.
 - If a change requires an external tool, plugin, package manager, or manual setup, document that requirement close to the relevant config.
+  - However, do NOT add irrelevant, archaeological (referring to things removed),
+    unnecessary long or verbose comments. Often, no comment is needed.
 - Do not run linking/install commands or mutate files outside this repository unless explicitly requested.
 - Do not revert unrelated local changes; this repo may have concurrent user edits.
