@@ -9,7 +9,7 @@ description: API development patterns for FastAPI backend and TypeScript client
   - really strive to move any checks/validation that occur at least twice into a
   dependency. 
 - Return Pydantic models for responses
-- Implement proper error handling with HTTPError
+- Implement proper error handling with HTTPException
 - All endpoints documented with OpenAPI decorators
 - Routes must always end with '/'
 
@@ -27,7 +27,7 @@ calling crud on objects, prefer passing the ORM reference instead of an id/uuid
 
 ## Frontend Client
 
-Auto-generated from OpenAPI spec (`npm run openapi`). Use generated client in `$lib/api/openapi.gen.ts`.
+Auto-generated from OpenAPI spec (`npm run openapi`). Use generated client in `src/lib/client/`.
 
 ### Client Generation
 

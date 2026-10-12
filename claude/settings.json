@@ -1,0 +1,15 @@
+{
+  "model": "opus",
+  "tui": "fullscreen",
+  "theme": "custom:opaque",
+  "editorMode": "vim",
+  "spinnerTipsEnabled": false,
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  }
+}

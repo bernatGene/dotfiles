@@ -8,7 +8,7 @@ description: Svelte 5 development with runes, destructured props, and component 
 - Use `$state()` for reactive state (variables that change)
 - Use `$derived()` for computed values based on state
 - Use `$effect()` sparingly - only for side effects that can't be handled by other means
-- Prefer reactive declarations over effects where possible
+- Prefer `$derived` over `$effect` where possible
 
 ## Component Props
 
@@ -17,7 +17,7 @@ description: Svelte 5 development with runes, destructured props, and component 
   let { title, count = 0, onAction } = $props();
   ```
 - Default values in destructuring, not with separate assignments
-- Document complex prop types with JSDoc
+- Type props with TypeScript (`<script lang="ts">`)
 
 ## Component Reusability
 
@@ -31,7 +31,7 @@ description: Svelte 5 development with runes, destructured props, and component 
 - Keep components under ~150 lines
 - Extract repeated patterns into smaller components
 - Prefer simple prop passing over complex context usage
-- Use slot composition over prop drilling for layout variations
+- Use snippets over prop drilling for layout variations
 
 ## Project Structure
 

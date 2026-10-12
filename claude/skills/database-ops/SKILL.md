@@ -1,5 +1,5 @@
 ---
-name: db-ops
+name: database-ops
 description: Database patterns using SQLAlchemy async with PostgreSQL/PostGIS, including migrations.
 ---
 
@@ -8,17 +8,17 @@ description: Database patterns using SQLAlchemy async with PostgreSQL/PostGIS, i
 ```bash
 uv run alembic revision --autogenerate -m "Added account table" # autogenerate migration
 uv run alembic upgrade head
-uv run alembic downgrade -1 # unapply migration, do not run unless authorized. 
+uv run alembic downgrade -1 # unapply migration, do not run unless authorized.
 uv run alembic current # Current revision
-uv run alembic history # History. 
+uv run alembic history # History.
 ```
 
 Do not manually create migration files. Use --autogenerate, then, if required, edit that
-file. 
+file.
 
-Be careful with migrations. When changing git branches, de DB might not be versioned
+Be careful with migrations. When changing git branches, the DB might not be versioned
 accordingly. If a migration fails, STOP, ask for help. Check current/history
-etc. 
+etc.
 
 ## CRUD Operations
 
@@ -33,4 +33,3 @@ etc.
 - `/app/api/routes/` - API endpoints
 - `/app/schemas/` - Pydantic models
 - `/app/crud/` - Database operations
-

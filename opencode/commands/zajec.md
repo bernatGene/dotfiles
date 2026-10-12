@@ -11,7 +11,7 @@ matters, in one short sentence. Do not describe the implementation or how it wor
 Start exactly one fresh `sol` subagent. Give it only this starting prompt:
 
 ```text
-Load and follow the code-review skill.
+Load and follow the local-review skill.
 
 Objective: <objective>
 

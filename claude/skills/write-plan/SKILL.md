@@ -64,7 +64,6 @@ Clear one-sentence description of the goal.
 
 ## Integration with Other Skills
 
-- After creating a plan, use `db-ops` if migrations are needed
+- After creating a plan, use `database-ops` if migrations are needed
 - Reference `api-development` when planning endpoint structure
-- Use `geospatial` when planning GIS-related features
 

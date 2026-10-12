@@ -1,7 +1,6 @@
 ---
 name: testing
-description: Testing guidelines for backend (pytest) and frontend (Playwright + MSW).
-Currently not strictly enforced. 
+description: Testing guidelines for backend (pytest) and frontend (Playwright + MSW). Currently not strictly enforced.
 ---
 
 We're currently light on tests. Unless asked, no need to bother. 

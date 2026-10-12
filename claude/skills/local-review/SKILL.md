@@ -1,5 +1,5 @@
 ---
-name: code-review
+name: local-review
 description: Use ONLY for a fresh-context, read-only review of bounded local code changes against a stated objective.
 ---
 

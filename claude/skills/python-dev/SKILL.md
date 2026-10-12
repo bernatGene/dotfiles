@@ -20,7 +20,7 @@ description: Python development practices using uv and ruff
   - formatting manually is a waste of context.
 
 - snake_case for functions/variables, PascalCase for classes
-- Strict type hints, never `from __future__ import typing`
+- Strict type hints, never `from __future__ import annotations`
 - Python >= 3.12: use `list`, `dict` not `typing.List`
 - Top-level imports only. No function-local imports unless:
   - Optional dependency

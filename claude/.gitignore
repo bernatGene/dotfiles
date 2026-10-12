@@ -1,0 +1,16 @@
+# ~/.claude is symlinked to this directory and also holds runtime state
+# (history, transcripts, caches, plugins, synced skills).
+# Ignore everything by default; only allowlisted config is tracked.
+*
+
+!.gitignore
+!settings.json
+!CLAUDE.md
+!agents/
+!agents/**
+!commands/
+!commands/**
+!statusline.sh
+!skills/
+!skills/**
+skills/synced/

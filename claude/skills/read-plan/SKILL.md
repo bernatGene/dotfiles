@@ -29,7 +29,7 @@ Do NOT:
 
 If the command prints no file, report that no PLAN_*.md file exists and stop.
 
-*What to do:**
+**What to do:**
 
 1. Read the content of the latest plan file
 2. Extract key information: objective, current state, in-progress items, open questions
