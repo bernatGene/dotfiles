@@ -1,0 +1,12 @@
+font-family = JetBrainsMono Nerd Font Mono
+font-style-bold = ExtraBold
+font-style-italic = ExtraLight Italic
+font-size = 19
+
+theme = light:dotfiles-light,dark:dotfiles-dark
+background-opacity = 0.92
+
+macos-option-as-alt = right
+auto-update = off
+
+keybind = shift+enter=text:\x1b[27;2;13~
