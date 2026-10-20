@@ -414,6 +414,9 @@ return {
         tomorrow_link = function(ctx)
           return daily_link(ctx, 1, "Tomorrow")
         end,
+        carryover_tasks = function(ctx)
+          return require("plugins.obsidian.obsidian_carryover").substitution(ctx)
+        end,
       },
     },
     picker = { name = "fzf-lua" },
@@ -438,6 +441,7 @@ return {
   },
   config = function(_, opts)
     require("obsidian").setup(opts)
+    require("plugins.obsidian.obsidian_carryover").setup({ heading = "## Tasques", lookback_days = 7 })
     local calendar = require("plugins.obsidian.obsidian_calendar")
     calendar.setup({
       vault_path = vault_path,
