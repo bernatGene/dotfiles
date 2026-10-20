@@ -12,6 +12,8 @@
 !commands/**
 !statusline.sh
 !notify.sh
+!themes/
+!themes/**
 !skills/
 !skills/**
 skills/synced/
