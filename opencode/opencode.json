@@ -1,7 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": true,
-  "default_agent": "polaris",
   "agent": {
     "title": {
       "model": "openai/gpt-6-luna"
