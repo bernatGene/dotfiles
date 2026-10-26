@@ -4,6 +4,7 @@
   "theme": "custom:opaque",
   "editorMode": "vim",
   "spinnerTipsEnabled": false,
+  "promptSuggestionEnabled": false,
   "attribution": {
     "commit": "",
     "pr": ""
