@@ -91,14 +91,15 @@ uv run zajec update-title --repo owner/repo --pr 123 --title "[MOT-323] Improve 
 
  **Improve the PR title when needed**
    - Treat the current title as compliant when it matches
-     `^\[(?:[A-Z]+-\d+|NO-REF)\]`; in that case, leave it unchanged.
+     `^\[(?:[A-Z]+-\d+(?:\.\d+)*|NO-REF)\]`; in that case, leave it unchanged.
    - If the current title starts with `[NO-REF]` or an uppercase ticket reference such
-     as `[MOT-323]`, leave it unchanged. Do not judge the description after the prefix.
+     as `[MOT-323]` or `[MOT-323.3]`, leave it unchanged. Do not judge the description
+     after the prefix.
    - Otherwise, once you understand the PR scope and objective well enough, write a
      short, meaningful description and update the title exactly once.
    - Infer the ticket from the head branch when it contains a reference such as
-     `feat/MOT-323-description`. For references such as `MOT-323.12`, discard the dotted
-     suffix and use `[MOT-323]`. If no ticket can be inferred, use `[NO-REF]`.
+     `feat/MOT-323-description`. Preserve any dotted suffix: `feat/MOT-323.3-description`
+     becomes `[MOT-323.3]`. If no ticket can be inferred, use `[NO-REF]`.
    - Base the description on the PR context and diff, not only on the branch slug.
    ```bash
    uv run zajec update-title --repo owner/repo --pr <n> --title "[MOT-323] Short meaningful description"
