@@ -1,27 +1,39 @@
 {
-  "model": "opus",
-  "tui": "fullscreen",
-  "theme": "custom:opaque",
-  "editorMode": "vim",
-  "spinnerTipsEnabled": false,
-  "promptSuggestionEnabled": false,
   "attribution": {
     "commit": "",
     "pr": ""
+  },
+  "model": "opus",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/notify.sh"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt|elicitation_dialog",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/notify.sh"
+          }
+        ]
+      }
+    ]
   },
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
-  "hooks": {
-    "Stop": [
-      { "hooks": [{ "type": "command", "command": "~/.claude/notify.sh" }] }
-    ],
-    "Notification": [
-      {
-        "matcher": "permission_prompt|elicitation_dialog",
-        "hooks": [{ "type": "command", "command": "~/.claude/notify.sh" }]
-      }
-    ]
-  }
+  "spinnerTipsEnabled": false,
+  "promptSuggestionEnabled": false,
+  "tui": "fullscreen",
+  "theme": "custom:opaque",
+  "editorMode": "vim"
 }
